@@ -4,10 +4,11 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.4",
-        "andskur/coinmc": "^0.5.0",
-        "laravel/framework": "5.4.*",
+        "krorten/nanopool": "dev-master",
+        "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0"
     },
     "require-dev": {

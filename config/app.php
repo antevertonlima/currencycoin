@@ -177,7 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Andskur\CoinMc\CoinMcServiceProvider::class,
+        //Andskur\CoinMc\CoinMcServiceProvider::class,
 
     ],
 
@@ -227,7 +227,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'CoinMc' => Andskur\CoinMc\CoinMcFacade::class,
+        //'CoinMc' => Andskur\CoinMc\CoinMcFacade::class,
 
     ],
 

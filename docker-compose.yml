@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  currencycoindb:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=evertonr
+      - MARIADB_DATABASE=currencycoin
+      - MARIADB_PASSWORD=051585
+
+  currencycoin:
+    tty: true
+    image: 'bitnami/laravel:latest'
+    labels:
+      kompose.service.type: nodeport
+    environment:
+      - DB_HOST=currencycoindb
+      - DB_USERNAME=evertonr
+      - DB_DATABASE=currencycoin
+      - DB_PASSWORD=051585
+    depends_on:
+      - currencycoindb
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
