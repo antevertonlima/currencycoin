@@ -10,6 +10,6 @@ class SomeController extends Controller
      */
     public function index($coin = 'bitcoin')
     {
-
+        //to do
     }
 }
