@@ -179,6 +179,11 @@ return [
 
         //Andskur\CoinMc\CoinMcServiceProvider::class,
 
+        /*
+         * Application Service Providers...
+         */
+        Krorten\Nanopool\Providers\NanopoolProvider::class,
+
     ],
 
     /*
@@ -228,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //'CoinMc' => Andskur\CoinMc\CoinMcFacade::class,
+        'Nanopool' => Krorten\Nanopool\Facades\NanopoolFacade::class,
 
     ],
 
