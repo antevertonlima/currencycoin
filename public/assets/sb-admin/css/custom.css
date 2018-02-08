@@ -1,0 +1,12 @@
+.card-header, .card-footer {
+    padding: 0.10rem 0.15rem;
+}
+
+.card-body{
+    padding: 0.30rem;
+}
+
+.table td,
+.table th {
+    padding: 0.20rem;
+}

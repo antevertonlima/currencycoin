@@ -18,4 +18,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/pool/{coin}/{address}', 'SomeController@index')->name('pool');
+Route::get('/pool', 'SomeController@index')->name('pool');

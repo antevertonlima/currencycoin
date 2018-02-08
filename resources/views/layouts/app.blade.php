@@ -23,9 +23,10 @@
 
     <!-- CSS defining icon/coin colors (optional) -->
     <link rel="stylesheet" href="{{ asset('assets/sb-admin/vendor/cryptocoins/webfont/cryptocoins-colors.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/sb-admin/css/custom.css') }}">
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
