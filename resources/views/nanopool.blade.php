@@ -8,11 +8,11 @@
             <div class="card text-white bg-primary o-hidden h-100">
                 <div class="card-body">
                     <div class="card-body-icon">
-                        <i class="cc {{ strtoupper($coin) }}-alt" title="{{ strtoupper($coin) }}"></i>
+                        <i class="cc ETH-alt" title="ETH"></i>
                     </div>
                     <div class="mr-5">
-                        <div>{{ strtoupper($coin) }} Hoje</div>
-                        <div>R$ {{ number_format($coin_currency * $dolar_currency,2) }}</div>
+                        <div>ETH Hoje</div>
+                        <div>R$ <span class="coin-currency"></span></div>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="mr-5">
                         <div>USD Hoje</div>
-                        <div>R$ {{ number_format($dolar_currency,2) }}</div>
+                        <div>R$ <span class="usd-currency"></span></div>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="mr-5">
                         <div>Saque a cada</div>
-                        <div>{{ $dias_saque }} dia(s)</div>
+                        <div><b><span class="saque_dias"></span></b></div>
                     </div>
                 </div>
             </div>
@@ -51,123 +51,71 @@
                     </div>
                     <div class="mr-5">
                         <div>Próximo saque</div>
-                        <div>{{ $falta_dias_saque }} dia(s)</div>
+                        <div><b><span class="falta_dias"></span></b></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="cc {{ strtoupper($coin) }}-alt"></i>
-                    A receber: {{ $general->balance }} - R$ {{ number_format(($general->balance * $coin_currency) * $dolar_currency,2) }}
+                    <i class="cc ETH-alt"></i>
+                    A receber: <b><span class="coin-balance"></span></b> - R$ <b><span class="coin-balance-brl"></span></b>
                     /
-                    Valor para saque: {{ $min_saque }} - R$ {{ number_format(($min_saque * $coin_currency) * $dolar_currency,2) }}
+                    Valor para saque: <b><span class="min_saque"></span></b> - R$ <b><span class="min_saque_brl"></span></b>
                 </div>
                 <div class="card-body">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success progress-bar-striped"
-                             role="progressbar"
-                             aria-valuenow="{{ $minerado }}"
-                             aria-valuemin="0"
-                             aria-valuemax="100"
-                             style="width:{{ $minerado }}%">
-                            <b>{{ $minerado }}%</b>
+                    <div class="progress minerado"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="cc ETH-alt"></i> Analises
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                <i class="cc ETH-alt"></i> Estimativa de ganho
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                                <i class="cc ETH-alt"></i> Pagamentos realizados
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                                <i class="cc ETH-alt"></i> Trabalhadores
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="table_calc"></div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table_pay"></div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            Em Produção!
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="cc {{ strtoupper($coin) }}-alt"></i> Estimativa de ganho
-                </div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Frequencia</th>
-                            <th scope="col">Fração</th>
-                            <th scope="col">Bitcoin</th>
-                            <th scope="col">Dollar</th>
-                            <th scope="col">Real</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ $calculator['per_day']['titulo'] }}</td>
-                                <td><i class="cc {{ strtoupper($coin) }}"></i> {{ $calculator['per_day']['coins'] }}</td>
-                                <td><i class="cc BTC"></i> {{ $calculator['per_day']['btc'] }}</td>
-                                <td><i class="fa fa-fw fa-usd"></i> {{ $calculator['per_day']['dolar'] }}</td>
-                                <td>{{ $calculator['per_day']['real'] }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ $calculator['per_week']['titulo'] }}</td>
-                                <td><i class="cc {{ strtoupper($coin) }}"></i> {{ $calculator['per_week']['coins'] }}</td>
-                                <td><i class="cc BTC"></i> {{ $calculator['per_week']['btc'] }}</td>
-                                <td><i class="fa fa-fw fa-usd"></i> {{ $calculator['per_week']['dolar'] }}</td>
-                                <td>{{ $calculator['per_week']['real'] }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ $calculator['per_month']['titulo'] }}</td>
-                                <td><i class="cc {{ strtoupper($coin) }}"></i> {{ $calculator['per_month']['coins'] }}</td>
-                                <td><i class="cc BTC"></i> {{ $calculator['per_month']['btc'] }}</td>
-                                <td><i class="fa fa-fw fa-usd"></i> {{ $calculator['per_month']['dolar'] }}</td>
-                                <td>{{ $calculator['per_month']['real'] }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <div class="card-footer">
-                    Hashrate Média: {{ $media_hash }} {{ $sol_mh_hash }} - Hashrate 24h: {{ $general->avgHashrate->h24 }} {{ $sol_mh_hash }}
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="cc {{ strtoupper($coin) }}-alt"></i> Pagamentos realizados
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Real</th>
-                            <th scope="col">Coin</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @forelse($pagamentos as $payments)
-                            <tr>
-                                <td>R$ {{ number_format(($payments->amount * $coin_currency) * $dolar_currency,2) }}</td>
-                                <td><i class="cc {{ strtoupper($coin) }}"></i> {{ $payments->amount }}</td>
-                            </tr>
-                        @empty
-                            <p>Não foi efetuado nenhum pagamento para esse mineiro.</p>
-                        @endforelse
-                        </tbody>
-                        <tfooter>
-                            <tr>
-                                <td colspan="2"><b>Total</b></td>
-                            </tr>
-                            <tr>
-                                <td>R$ {{ number_format(($vl_pagamento_tot * $coin_currency) * $dolar_currency,2) }}</td>
-                                <td><i class="cc {{ strtoupper($coin) }}"></i> {{ $vl_pagamento_tot }}</td>
-                            </tr>
-                        </tfooter>
-                    </table>
+                    <h4>
+                          <span class="hashrates" data-toggle="tooltip" data-html="true">Hashrate</span>
+                    </h4>
 
+                    Placas: <b><span class="poder_placas"></span></b> - Média: <b><span class="media_hash"></span></b> - 24h: <b><span class="hash24"></span></b>
                 </div>
             </div>
         </div>
