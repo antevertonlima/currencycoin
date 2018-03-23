@@ -11,17 +11,19 @@
               <thead>
                 <tr>
                     <th>#ID</th>
-                  <th>Nome</th>
-                  <th>Descrição</th>
-                  <th>Unidade</th>
+                    <th>Nome</th>
+                    <th>Unidade</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
                     <th>#ID</th>
                     <th>Nome</th>
-                    <th>Descrição</th>
                     <th>Unidade</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
                 </tr>
               </tfoot>
               <tbody>
@@ -30,12 +32,26 @@
                     <tr>
                         <td>{{ $algorithm->id }}</td>
                         <td>{{ $algorithm->name }}</td>
-                        <td>{{ $algorithm->description }}</td>
                         <td>{{ $algorithm->measure }}</td>
+                        <td>{{ $algorithm->description }}</td>
+                        <td>
+                            <div class="row">
+                              <div class="col-md-6">
+                                  <a href="{{ route('algo.edit', ['id' => $algorithm->id]) }}" class="btn btn-primary btn-block">
+                                      <i class="fa fa-pencil-square"></i> Edit
+                                  </a>
+                              </div>
+                              <div class="col-md-6">
+                                  {{ Form::open(['route' => ['algo.destroy', $algorithm->id], 'method' => 'delete']) }}
+                                  <button class="btn btn-danger btn-block" type="submit"><i class="fa fa-minus-square"></i> Delete</button>
+                                  {{ Form::close() }}
+                              </div>
+                            </div>
+                        </td>
                     </tr>
                   @empty
                     <tr>
-                        <td colspan="3"><b>Não existem algoritimos cadastradas no momento!</b></td>
+                        <td colspan="5"><b>Não existem algoritimos cadastradas no momento!</b></td>
                     </tr>
                   @endforelse
                 

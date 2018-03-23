@@ -19,7 +19,7 @@ class CreateCoinsTable extends Migration
             $table->string('abbreviation')->unique();
             $table->text('description');
             $table->integer('algorithm_id')->unsigned();
-            $table->foreign('algorithm_id')->references('id')->on('coins');
+            $table->foreign('algorithm_id')->references('id')->on('algorithms');
             $table->timestamps();
         });
     }

@@ -169,6 +169,11 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
+         * Laravel Collective...
+         */
+        Collective\Html\HtmlServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -234,7 +239,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //'CoinMc' => Andskur\CoinMc\CoinMcFacade::class,
         'Nanopool' => Krorten\Nanopool\Facades\NanopoolFacade::class,
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

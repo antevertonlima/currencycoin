@@ -14,6 +14,8 @@
                     <th>Nome</th>
                     <th>Abreviação</th>
                     <th>Algoritimo</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
                 </tr>
               </thead>
               <tfoot>
@@ -22,6 +24,8 @@
                     <th>Nome</th>
                     <th>Abreviação</th>
                     <th>Algoritimo</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
                 </tr>
               </tfoot>
               <tbody>
@@ -32,10 +36,25 @@
                         <td>{{ $coin->name }}</td>
                         <td>{{ $coin->abbreviation }}</td>
                         <td>{{ $coin->algorithm->name }}</td>
+                        <td>{{ $coin->description }}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <a href="{{ route('coin.edit', ['id' => $coin->id]) }}" class="btn btn-primary btn-block">
+                                      <i class="fa fa-pencil-square"></i> Edit
+                                  </a>  
+                                </div>
+                                <div class="col-md-6">
+                                  {{ Form::open(['route' => ['coin.destroy', $coin->id], 'method' => 'delete']) }}
+                                  <button class="btn btn-danger btn-block" type="submit"><i class="fa fa-minus-square"></i> Delete</button>
+                                  {{ Form::close() }}
+                                </div>
+                              </div>
+                        </td>
                     </tr>
                   @empty
                     <tr>
-                        <td colspan="3"><b>Não existem criptomedas cadastradas no momento!</b></td>
+                        <td colspan="5"><b>Não existem criptomedas cadastradas no momento!</b></td>
                     </tr>
                   @endforelse
                 

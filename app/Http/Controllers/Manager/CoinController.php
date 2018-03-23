@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //Models
 use App\Models\Coin;
+use App\Models\Algorithm;
 
 class CoinController extends Controller
 {
@@ -17,7 +18,7 @@ class CoinController extends Controller
     public function index()
     {
         $coins = Coin::paginate(10);
-        return view('partials.coins', compact('coins'));
+        return view('partials.coin.coins', compact('coins'));
     }
 
     /**
@@ -38,18 +39,7 @@ class CoinController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $coin = Coin::create($request->all());
     }
 
     /**
@@ -58,9 +48,10 @@ class CoinController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Coin $coin)
     {
-        //
+        $algorithms = Algorithm::pluck('name', 'id');
+        return view('partials.coin.coins-edit', compact('coin','algorithms'));
     }
 
     /**
@@ -70,9 +61,14 @@ class CoinController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Coin $coin)
     {
-        //
+        $coin->fill($request->all());
+        $coin->save();
+        // $url = $request->get('redirect_to' , route('coin.index'));
+        $url = route('coin.index');
+        $request->session()->flash('message', 'Criptomoeda "'.$coin->name.'" salva com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -81,8 +77,12 @@ class CoinController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Coin $coin)
     {
-        //
+        $coin->delete();
+        // $url = $request->get('redirect_to' , route('coin.index'));
+        $url = route('coin.index');
+        $request->session()->flash('message', 'Criptomoeda exclida com sucesso!');
+        return redirect()->to($url);
     }
 }

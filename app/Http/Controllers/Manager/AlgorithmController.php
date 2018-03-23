@@ -18,7 +18,7 @@ class AlgorithmController extends Controller
     public function index()
     {
         $algorithms = Algorithm::paginate(10);
-        return view('partials.algorithms', compact('algorithms'));
+        return view('partials.algo.algorithms', compact('algorithms'));
     }
 
     /**
@@ -41,27 +41,16 @@ class AlgorithmController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Algorithm $algo)
     {
-        //
+        return view('partials.algo.algorithms-edit', compact('algo'));
     }
 
     /**
@@ -71,9 +60,14 @@ class AlgorithmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Algorithm $algo)
     {
-        //
+        $algo->fill($request->all());
+        $algo->save();
+        // $url = $request->get('redirect_to' , route('coin.index'));
+        $url = route('algo.index');
+        $request->session()->flash('message', 'Criptomoeda "'.$algo->name.'" salva com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -82,8 +76,12 @@ class AlgorithmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Algorithm $algo)
     {
-        //
+        $algo->delete();
+        // $url = $request->get('redirect_to' , route('coin.index'));
+        $url = route('algo.index');
+        $request->session()->flash('message', 'Algoritimo exclido com sucesso!');
+        return redirect()->to($url);
     }
 }
