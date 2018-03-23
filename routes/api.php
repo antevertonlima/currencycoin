@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('/currency/{coin}', 'SomeController@index');
-Route::get('/calculator/{coin}/{hashrate}', 'BaseController@calculator')->name('api_calculator');
-Route::get('/payments/{coin}/{wallet}', 'BaseController@payments')->name('api_payments');
-Route::get('/general/{coin}/{wallet}', 'BaseController@general')->name('api_general');
+Route::apiResources([
+    'algo' => 'Api\AlgorithmController',
+    'coin' => 'Api\CoinController'
+]);
