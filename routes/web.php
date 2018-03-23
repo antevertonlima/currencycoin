@@ -17,5 +17,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/pool', 'SomeController@index')->name('pool');
+
+// rotas de gerenciamento (backend)
+Route::prefix('manager')->group(function () {    
+    Route::get('/algo', 'AlgorithmController@index')->name('algo');
+    Route::get('/coin', 'CoinController@index')->name('coin');
+});
