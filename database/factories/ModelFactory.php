@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -23,16 +23,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Algorithm::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Algorithm::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
         'name'        => $faker->name,
-        'description' => $faker->unique()->word
+        'description' => $faker->unique()->word,
+        'measure'     => 'mh/s'
     ];
 });
 
-$factory->define(\App\Coin::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Coin::class, function (Faker\Generator $faker) {
     static $password;
 
     return [

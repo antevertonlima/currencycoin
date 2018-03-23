@@ -10,22 +10,28 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
+                    <th>#ID</th>
                   <th>Nome</th>
                   <th>Descrição</th>
+                  <th>Unidade</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
+                    <th>#ID</th>
                     <th>Nome</th>
                     <th>Descrição</th>
+                    <th>Unidade</th>
                 </tr>
               </tfoot>
               <tbody>
                 
                   @forelse ($algorithms as $algorithm)
                     <tr>
+                        <td>{{ $algorithm->id }}</td>
                         <td>{{ $algorithm->name }}</td>
                         <td>{{ $algorithm->description }}</td>
+                        <td>{{ $algorithm->measure }}</td>
                     </tr>
                   @empty
                     <tr>

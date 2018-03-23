@@ -16,6 +16,7 @@ class CreateAlgorithmsTable extends Migration
         Schema::create('algorithms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->string('measure');
             $table->text('description');
             $table->timestamps();
         });

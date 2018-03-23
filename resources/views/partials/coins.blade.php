@@ -10,13 +10,15 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Abreviação</th>
-                  <th>Algoritimo</th>
+                    <th>#ID</th>
+                    <th>Nome</th>
+                    <th>Abreviação</th>
+                    <th>Algoritimo</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
+                    <th>#ID</th>
                     <th>Nome</th>
                     <th>Abreviação</th>
                     <th>Algoritimo</th>
@@ -26,6 +28,7 @@
                 
                   @forelse ($coins as $coin)
                     <tr>
+                        <td>{{ $coin->id }}</td>
                         <td>{{ $coin->name }}</td>
                         <td>{{ $coin->abbreviation }}</td>
                         <td>{{ $coin->algorithm->name }}</td>

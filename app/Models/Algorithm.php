@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,6 +8,6 @@ class Algorithm extends Model
 {
     public function coins()
     {
-        return $this->hasMany('App\Coin');
+        return $this->hasMany('App\Models\Coin');
     }
 }
