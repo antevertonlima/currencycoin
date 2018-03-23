@@ -1,27 +1,62 @@
+
+# v2 syntax
 version: '2'
 
-services:
-  currencycoindb:
-    image: 'bitnami/mariadb:latest'
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=evertonr
-      - MARIADB_DATABASE=currencycoin
-      - MARIADB_PASSWORD=051585
+# Named volumes
+volumes:
+  # MySQL Data
+  l5-currencycoin-mysql-data:
+    driver: local
 
-  currencycoin:
-    tty: true
-    image: 'bitnami/laravel:latest'
-    labels:
-      kompose.service.type: nodeport
-    environment:
-      - DB_HOST=currencycoindb
-      - DB_USERNAME=evertonr
-      - DB_DATABASE=currencycoin
-      - DB_PASSWORD=051585
-    depends_on:
-      - currencycoindb
-    ports:
-      - 3000:3000
+  # Redis Data
+  l5-currencycoin-redis-data:
+    driver: local
+
+services:
+  # MySQL (5.7)
+  mysql:
+    image: mysql:5.7
+    container_name: l5-currencycoin-mysql
     volumes:
-      - ./:/app
+      - l5-currencycoin-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=currencycoin
+      - MYSQL_DATABASE=currencycoin
+      - MYSQL_USER=currencycoin
+      - MYSQL_PASSWORD=currencycoin
+
+  # Redis
+  cache:
+    image: redis:4.0
+    container_name: l5-currencycoin-redis
+    command: --appendonly yes
+    volumes:
+      - l5-currencycoin-redis-data:/data
+    ports:
+      - "6379:6379"
+
+  # PHP (with Nginx)
+  # you can change from nginx to apache, just change session 'image'
+  app:
+    image: ambientum/php:7.2-nginx
+    container_name: l5-currencycoin-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - mysql
+      - cache
+
+  # Laravel Queues
+  queue:
+    image: ambientum/php:7.2
+    container_name: l5-currencycoin-queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    links:
+      - mysql
+      - cache
