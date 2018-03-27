@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Manager;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CoinRequest as Request;
 //Models
 use App\Models\Coin;
 use App\Models\Algorithm;
