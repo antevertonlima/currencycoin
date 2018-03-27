@@ -28,7 +28,8 @@ class CoinController extends Controller
      */
     public function create()
     {
-        //
+        $algorithms = Algorithm::pluck('name', 'id');
+        return view('partials.coin.coins-store', compact('algorithms'));
     }
 
     /**
@@ -37,9 +38,12 @@ class CoinController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Coin $coin)
     {
-        $coin = Coin::create($request->all());
+        $coin->create($request->all());
+        $url = $request->get('redirect_to' , route('coin.index'));
+        $request->session()->flash('message', 'Criptomoeda "'.$request->input('name').'" criada com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -65,8 +69,7 @@ class CoinController extends Controller
     {
         $coin->fill($request->all());
         $coin->save();
-        // $url = $request->get('redirect_to' , route('coin.index'));
-        $url = route('coin.index');
+        $url = $request->get('redirect_to' , route('coin.index'));
         $request->session()->flash('message', 'Criptomoeda "'.$coin->name.'" salva com sucesso!');
         return redirect()->to($url);
     }

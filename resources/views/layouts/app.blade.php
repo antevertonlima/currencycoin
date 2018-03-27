@@ -128,7 +128,7 @@
             var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
             var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, balance = 0;
             var minerado = "", progresso = "";
-            var poder_placas_amd = (28.75 * 2) + (30.52 * 1) + (/*12.25*/15.5 * 3);
+            var poder_placas_amd = (28.75 * 2) + (30.32 * 1) + (/*12.25*/15.5 * 3);
             var poder_placas_nvidia = ((31.1 * 6) * 0) + ((25.07 * 1) * 1) + ((15.06 * 5) * 1);
             var poder_placas = poder_placas_amd + poder_placas_nvidia;
             var placas = 0;

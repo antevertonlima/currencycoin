@@ -28,7 +28,7 @@ class AlgorithmController extends Controller
      */
     public function create()
     {
-        //
+        return view('partials.algo.algorithms-store');
     }
 
     /**
@@ -37,9 +37,12 @@ class AlgorithmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Algorithm $algo)
     {
-        //
+        $algo->create($request->all());
+        $url = $request->get('redirect_to' , route('algo.index'));
+        $request->session()->flash('message', 'Algoritmo "'.$request->input('name').'" criado com sucesso!');
+        return redirect()->to($url);
     }
     
     /**
@@ -64,8 +67,7 @@ class AlgorithmController extends Controller
     {
         $algo->fill($request->all());
         $algo->save();
-        // $url = $request->get('redirect_to' , route('coin.index'));
-        $url = route('algo.index');
+        $url = $request->get('redirect_to' , route('algo.index'));
         $request->session()->flash('message', 'Criptomoeda "'.$algo->name.'" salva com sucesso!');
         return redirect()->to($url);
     }

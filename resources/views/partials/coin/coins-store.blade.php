@@ -4,14 +4,14 @@
 <div class="container">
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fa fa-table"></i> Editar {{ $algo->name }}
+            <i class="fa fa-table"></i> Cadastrar Nova Criptomoeda
         </div>
         <div class="card-body">
-        {{ Form::model($algo, ['route' => ['algo.update', $algo->id], 'method' => 'PUT']) }}
+            {{ Form::open(['route' => 'coin.store']) }}
 
-        @include('partials.algo._form')
-        
-        {!!  Form::close()  !!}
+            @include('partials.coin._form')
+            
+            {!!  Form::close()  !!}
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
