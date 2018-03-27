@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AlgorithmRequest extends FormRequest
+class GraphicTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AlgorithmRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,7 @@ class AlgorithmRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'measure' => 'required|min:2',
-            'description' => 'required'
+            //
         ];
     }
 }

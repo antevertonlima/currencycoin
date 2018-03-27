@@ -46,19 +46,15 @@
                         <td>{{ $coin->algorithm->name }}</td>
                         <td>{{ $coin->description }}</td>
                         <td>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <a href="{{ route('coin.edit', ['id' => $coin->id]) }}" 
-                                     class="btn btn-primary btn-sm btn-block">
-                                      <i class="fa fa-pencil-square"></i> Edit
-                                  </a>  
-                                </div>
-                                <div class="col-md-6">
-                                  {{ Form::open(['route' => ['coin.destroy', $coin->id], 'method' => 'delete']) }}
-                                  <button class="btn btn-danger btn-sm btn-block" type="submit"><i class="fa fa-minus-square"></i> Delete</button>
-                                  {{ Form::close() }}
-                                </div>
-                              </div>
+                            <a href="{{ route('coin.edit', ['id' => $coin->id]) }}" 
+                                class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil-square"></i> 
+                            </a>
+
+                            <a href="{{ route('coin.destroy', ['id' => $coin->id]) }}" 
+                                class="btn btn-danger btn-sm">
+                                <i class="fa fa-minus-square"></i> 
+                            </a>
                         </td>
                     </tr>
                   @empty

@@ -25,9 +25,9 @@ class CoinRequest extends FormRequest
     {
         return [
             'algorithm_id' => 'required',
-            'name' => 'required|unique:coins|max:255',
-            'abbreviation' => 'required|unique:coins|min:2',
-            'description' => 'required|unique:coins'
+            'name' => 'required|max:255',
+            'abbreviation' => 'required|min:2',
+            'description' => 'required'
         ];
     }
 }

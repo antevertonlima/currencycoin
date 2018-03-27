@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Manager;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as Controller;
-use App\Http\Requests\AlgorithmRequest as AlgorithmRequest;
+use App\Http\Requests\BrandRequest as BrandRequest;
 
-use App\Models\Algorithm;
+use App\Models\Brand;
 
-class AlgorithmController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class AlgorithmController extends Controller
      */
     public function index()
     {
-        $algorithms = Algorithm::paginate(10);
-        return view('partials.algo.algorithms', compact('algorithms'));
+        $brands = brand::paginate(10);
+        return view('partials.brand.brands', compact('brands'));
     }
 
     /**
@@ -28,7 +28,7 @@ class AlgorithmController extends Controller
      */
     public function create()
     {
-        return view('partials.algo.algorithms-store');
+        return view('partials.brand.brands-store');
     }
 
     /**
@@ -37,23 +37,23 @@ class AlgorithmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AlgorithmRequest $request, Algorithm $algo)
+    public function store(BrandRequest $request, Brand $brand)
     {
-        $algo->create($request->all());
-        $url = $request->get('redirect_to' , route('algo.index'));
-        $request->session()->flash('message', 'Algoritmo "'.$request->input('name').'" criado com sucesso!');
+        $brand->create($request->all());
+        $url = $request->get('redirect_to' , route('brand.index'));
+        $request->session()->flash('message', 'Marca "'.$request->input('name').'" criada com sucesso!');
         return redirect()->to($url);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Algorithm $algo)
+    public function edit(Brand $brand)
     {
-        return view('partials.algo.algorithms-edit', compact('algo'));
+        return view('partials.brand.brands-edit', compact('brand'));
     }
 
     /**
@@ -63,12 +63,12 @@ class AlgorithmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AlgorithmRequest $request, Algorithm $algo)
+    public function update(BrandRequest $request, Brand $brand)
     {
-        $algo->fill($request->all());
-        $algo->save();
-        $url = $request->get('redirect_to' , route('algo.index'));
-        $request->session()->flash('message', 'Algoritimo "'.$request->input('name').'" salvo com sucesso!');
+        $brand->fill($request->all());
+        $brand->save();
+        $url = $request->get('redirect_to' , route('brand.index'));
+        $request->session()->flash('message', 'Marca "'.$request->input('name').'" salva com sucesso!');
         return redirect()->to($url);
     }
 
@@ -78,11 +78,11 @@ class AlgorithmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Algorithm $algo)
+    public function destroy(Request $request, Brand $brand)
     {
-        $algo->delete();
-        $url = route('algo.index');
-        $request->session()->flash('message', 'Algoritimo exclido com sucesso!');
+        $brand->delete();
+        $url = $request->get('redirect_to' , route('brand.index'));
+        $request->session()->flash('message', 'Marca exclida com sucesso!');
         return redirect()->to($url);
     }
 }

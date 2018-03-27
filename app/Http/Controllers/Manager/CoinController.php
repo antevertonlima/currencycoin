@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Manager;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CoinRequest as Request;
+use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController as Controller;
+use App\Http\Requests\CoinRequest as CoinRequest;
 //Models
 use App\Models\Coin;
 use App\Models\Algorithm;
@@ -38,7 +39,7 @@ class CoinController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Coin $coin)
+    public function store(CoinRequest $request, Coin $coin)
     {
         $coin->create($request->all());
         $url = $request->get('redirect_to' , route('coin.index'));
@@ -65,7 +66,7 @@ class CoinController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Coin $coin)
+    public function update(CoinRequest $request, Coin $coin)
     {
         $coin->fill($request->all());
         $coin->save();
@@ -83,7 +84,6 @@ class CoinController extends Controller
     public function destroy(Request $request, Coin $coin)
     {
         $coin->delete();
-        // $url = $request->get('redirect_to' , route('coin.index'));
         $url = route('coin.index');
         $request->session()->flash('message', 'Criptomoeda exclida com sucesso!');
         return redirect()->to($url);

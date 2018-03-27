@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AlgorithmRequest extends FormRequest
+class BrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,6 @@ class AlgorithmRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'measure' => 'required|min:2',
-            'description' => 'required'
         ];
     }
 }
