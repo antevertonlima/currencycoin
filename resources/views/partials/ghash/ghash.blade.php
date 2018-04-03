@@ -7,8 +7,8 @@
     @endif
     <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Listagem de Algoritimos
-          <a href="{{ route('algo.create') }}" 
+          <i class="fa fa-table"></i> Listagem de Taxas de Hash
+          <a href="{{ route('ghash.create') }}" 
               class="btn btn-primary btn-sm pull-right">
                <i class="fa fa-plus-square"></i>
            </a>
@@ -19,36 +19,45 @@
               <thead>
                 <tr>
                     <th>#ID</th>
-                    <th>Nome</th>
-                    <th>Unidade</th>
-                    <th>Descrição</th>
+                    <th>Placa de Video</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Moeda</th>
+                    <th>Hashrate</th>
+                    <th>Estado</th>
                     <th>Ações</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
                     <th>#ID</th>
-                    <th>Nome</th>
-                    <th>Unidade</th>
-                    <th>Descrição</th>
+                    <th>Placa de Video</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Moeda</th>
+                    <th>Hashrate</th>
+                    <th>Estado</th>
                     <th>Ações</th>
                 </tr>
               </tfoot>
               <tbody>
                 
-                  @forelse ($algorithms as $algorithm)
+                  @forelse ($ghashs as $ghash)
                     <tr>
-                        <td>{{ $algorithm->id }}</td>
-                        <td>{{ $algorithm->name }}</td>
-                        <td>{{ $algorithm->measure }}</td>
-                        <td>{{ $algorithm->description }}</td>
+                        <td>{{ $ghash->id }}</td>                        
+                        <td>{{ $ghash->graphicsCard->description }}</td>
+                        <td>{{ $ghash->graphicsCard->graphicSerie->graphicType->name }}</td>
+                        <td>{{ $ghash->graphicsCard->graphicSerie->graphicType->brand->name }}</td>
+                        <td>{{ $ghash->coin->name }}</td>
+                        <td>{{ $ghash->hashrate }} {{ $ghash->coin->algorithm->measure }}</td>
+                        <td>{{ $ghash->state }}</td>
                         <td>
-                            <a href="{{ route('algo.edit', ['id' => $algorithm->id]) }}" 
+                            <a href="{{ route('ghash.edit', ['id' => $ghash->id]) }}" 
                                 class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil-square"></i> 
                             </a>
 
-                            <a href="{{ route('algo.destroy', ['id' => $algorithm->id]) }}" 
+                            <a href="{{ route('ghash.destroy', ['id' => $ghash->id]) }}" 
                                 class="btn btn-danger btn-sm">
                                 <i class="fa fa-minus-square"></i> 
                             </a>
@@ -56,13 +65,13 @@
                     </tr>
                   @empty
                     <tr>
-                        <td colspan="5"><b>Não existem algoritimos cadastradas no momento!</b></td>
+                        <td colspan="8"><b>Não existem taxas de hash cadastradas no momento!</b></td>
                     </tr>
                   @endforelse
                 
               </tbody>
             </table>
-            {{ $algorithms->links() }}
+            {{ $ghashs->links() }}
           </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

@@ -20,13 +20,30 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/pool', 'SomeController@index')->name('pool');
 
 // rotas de gerenciamento (backend)
-Route::prefix('manager')->group(function () {    
-    Route::resource('algo', 'Manager\AlgorithmController', ['except' => ['show','destroy']]);
-    Route::get('algo/{algo}', 'Manager\AlgorithmController@destroy')->name('algo.destroy');
-
-    Route::resource('coin', 'Manager\CoinController', ['except' => ['show','destroy']]);
-    Route::get('coin/{coin}', 'Manager\CoinController@destroy')->name('coin.destroy');
+Route::prefix('manager')->group(function () {   
+    Route::prefix('criptocoins')->group(function () {
+        Route::resource('algo', 'Manager\AlgorithmController', ['except' => ['show','destroy']]);
+        Route::get('algo/{algo}', 'Manager\AlgorithmController@destroy')->name('algo.destroy');
     
-    Route::resource('brand', 'Manager\BrandController', ['except' => ['show','destroy']]);
-    Route::get('brand/{brand}', 'Manager\BrandController@destroy')->name('brand.destroy');
+        Route::resource('coin', 'Manager\CoinController', ['except' => ['show','destroy']]);
+        Route::get('coin/{coin}', 'Manager\CoinController@destroy')->name('coin.destroy');    
+    });
+
+    Route::prefix('graphics_cards')->group(function () {
+        Route::resource('brand', 'Manager\BrandController', ['except' => ['show','destroy']]);
+        Route::get('brand/{brand}', 'Manager\BrandController@destroy')->name('brand.destroy');
+
+        Route::resource('gtype', 'Manager\GraphicTypeController', ['except' => ['show','destroy']]);
+        Route::get('gtype/{gtype}', 'Manager\GraphicTypeController@destroy')->name('gtype.destroy');
+
+        Route::resource('gserie', 'Manager\GraphicSerieController', ['except' => ['show','destroy']]);
+        Route::get('gserie/{gserie}', 'Manager\GraphicSerieController@destroy')->name('gserie.destroy');
+
+        Route::resource('gcard', 'Manager\GraphicsCardController', ['except' => ['show','destroy']]);
+        Route::get('gcard/{gcard}', 'Manager\GraphicsCardController@destroy')->name('gcard.destroy');
+
+        Route::resource('ghash', 'Manager\GraphicsHashController', ['except' => ['show','destroy']]);
+        Route::get('ghash/{ghash}', 'Manager\GraphicsHashController@destroy')->name('ghash.destroy');
+    });
+    
 });

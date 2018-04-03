@@ -17,7 +17,7 @@ class GraphicsCard extends Model
         return $this->belongsTo('App\Models\GraphicSerie');
     }
 
-    public function hashGraphic()
+    public function hashrash()
     {
         return $this->hasMany('App\Models\HashrateGraphic');
     }

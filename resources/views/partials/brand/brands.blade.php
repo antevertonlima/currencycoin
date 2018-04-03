@@ -7,10 +7,10 @@
     @endif
     <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Listagem de Criptomedas 
+          <i class="fa fa-table"></i> Listagem de Marcas 
           <a href="{{ route('brand.create') }}" 
               class="btn btn-primary btn-sm pull-right">
-               <i class="fa fa-plus-square"></i> Nova
+               <i class="fa fa-plus-square"></i>
            </a>
         </div>
         <div class="card-body">

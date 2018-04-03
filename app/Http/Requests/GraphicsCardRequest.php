@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GraphicTypeRequest extends FormRequest
+class GraphicsCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class GraphicTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand_id' => 'required',
             'name' => 'required|max:255',
             'description' => 'required',
+            'graphic_serie_id'  => 'required'
         ];
     }
 }

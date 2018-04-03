@@ -7,8 +7,8 @@
     @endif
     <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Listagem de Algoritimos
-          <a href="{{ route('algo.create') }}" 
+          <i class="fa fa-table"></i> Listagem de Placas
+          <a href="{{ route('gcard.create') }}" 
               class="btn btn-primary btn-sm pull-right">
                <i class="fa fa-plus-square"></i>
            </a>
@@ -20,8 +20,10 @@
                 <tr>
                     <th>#ID</th>
                     <th>Nome</th>
-                    <th>Unidade</th>
                     <th>Descrição</th>
+                    <th>Serie</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
                     <th>Ações</th>
                 </tr>
               </thead>
@@ -29,26 +31,30 @@
                 <tr>
                     <th>#ID</th>
                     <th>Nome</th>
-                    <th>Unidade</th>
                     <th>Descrição</th>
+                    <th>Serie</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
                     <th>Ações</th>
                 </tr>
               </tfoot>
               <tbody>
                 
-                  @forelse ($algorithms as $algorithm)
+                  @forelse ($gcards as $gcard)
                     <tr>
-                        <td>{{ $algorithm->id }}</td>
-                        <td>{{ $algorithm->name }}</td>
-                        <td>{{ $algorithm->measure }}</td>
-                        <td>{{ $algorithm->description }}</td>
+                        <td>{{ $gcard->id }}</td>
+                        <td>{{ $gcard->name }}</td>
+                        <td>{{ $gcard->description }}</td>
+                        <td>{{ $gcard->graphicSerie->name }}</td>
+                        <td>{{ $gcard->graphicSerie->graphicType->name }}</td>
+                        <td>{{ $gcard->graphicSerie->graphicType->brand->name }}</td>
                         <td>
-                            <a href="{{ route('algo.edit', ['id' => $algorithm->id]) }}" 
+                            <a href="{{ route('gcard.edit', ['id' => $gcard->id]) }}" 
                                 class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil-square"></i> 
                             </a>
 
-                            <a href="{{ route('algo.destroy', ['id' => $algorithm->id]) }}" 
+                            <a href="{{ route('gcard.destroy', ['id' => $gcard->id]) }}" 
                                 class="btn btn-danger btn-sm">
                                 <i class="fa fa-minus-square"></i> 
                             </a>
@@ -56,13 +62,13 @@
                     </tr>
                   @empty
                     <tr>
-                        <td colspan="5"><b>Não existem algoritimos cadastradas no momento!</b></td>
+                        <td colspan="7"><b>Não existem placas de video cadastradas no momento!</b></td>
                     </tr>
                   @endforelse
                 
               </tbody>
             </table>
-            {{ $algorithms->links() }}
+            {{ $gcards->links() }}
           </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

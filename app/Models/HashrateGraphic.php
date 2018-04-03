@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class HashrateGraphic extends Model
 {
     protected $fillable = [
-    	'name',
         'state',
         'hashrate',
         'graphics_card_id',
         'coin_id'
     ];
 
-    public function graphicsCards()
+    public function graphicsCard()
     {
         return $this->belongsTo('App\Models\GraphicsCard');
     }

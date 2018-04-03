@@ -19,6 +19,6 @@ class GraphicSerie extends Model
 
     public function graphicsCard()
     {
-        return $this->hasMany('App\Models\GraphicsCards');
+        return $this->hasMany('App\Models\GraphicsCard');
     }
 }

@@ -10,7 +10,7 @@
           <i class="fa fa-table"></i> Listagem de Criptomedas 
           <a href="{{ route('coin.create') }}" 
               class="btn btn-primary btn-sm pull-right">
-               <i class="fa fa-plus-square"></i> Nova
+               <i class="fa fa-plus-square"></i>
            </a>
         </div>
         <div class="card-body">
