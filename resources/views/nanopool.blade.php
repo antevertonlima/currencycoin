@@ -8,10 +8,10 @@
             <div class="card text-white bg-primary o-hidden h-100">
                 <div class="card-body">
                     <div class="card-body-icon">
-                        <i class="cc ETH-alt" title="ETH"></i>
+                        <span class="coin-icon"></span>
                     </div>
                     <div class="mr-5">
-                        <div>ETH Hoje</div>
+                        <div><span class="coin_sigla"></span> Hoje</div>
                         <div>R$ <span class="coin-currency"></span></div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="cc ETH-alt"></i>
+                    <span class="coin-icon"></span>
                     A receber: <b><span class="coin-balance"></span></b> - R$ <b><span class="coin-balance-brl"></span></b>
                     /
                     Valor para saque: <b><span class="min_saque"></span></b> - R$ <b><span class="min_saque_brl"></span></b>
@@ -78,23 +78,23 @@
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="cc ETH-alt"></i> Analises
+                    <span class="coin-icon"></span> Analises
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                <i class="cc ETH-alt"></i> Estimativa de ganho
+                                <span class="coin-icon"></span> Estimativa de ganho
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                                <i class="cc ETH-alt"></i> Pagamentos realizados
+                                <span class="coin-icon"></span> Pagamentos realizados
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
-                                <i class="cc ETH-alt"></i> Trabalhadores
+                                <span class="coin-icon"></span> Trabalhadores
                             </a>
                         </li>
                     </ul>
@@ -129,7 +129,7 @@
 
         $('.hashrates').tooltip({"html":true});
 
-        var coin = 'etc', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
+        var coin = 'eth', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
         var url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
         var url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
         var url_dolar = "https://api.fixer.io/latest?base=USD";
@@ -139,27 +139,41 @@
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
         var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, balance = 0;
         var minerado = "", progresso = "";
-        var poder_placas_amd = (28.75 * 2) + (30.32 * 1) + (/*12.25*/15.5 * 3);
-        var poder_placas_nvidia = ((31.1 * 6) * 0) + ((25.07 * 1) * 1) + ((15.06 * 5) * 1);
+        var poder_placas_amd = (28.75 * 2) + (30.32 * 1) + (12.3 * 1);
+        var poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
         var placas = 0;
+        var coin_icon = '<i class="cc ETH-alt" title="ETH"></i>';
+        var coin_sigla = 'ETH';
 
         if(coin == 'zec'){
             wallet = 't1LFzpH46orZNPR5d9dSyENeYJqb2sysvYu';
             min_saque = 0.01000000;
-            poder_placas_amd = (300 * 2) + (325 * 1) + (114 * 3);
-            poder_placas_nvidia = ((295 * 1) * 1) + ((175 * 5) * 1);
+            coin_currency = 1250;
+            poder_placas_amd = (282 * 2) + (303 * 1) + (133 * 3);
+            poder_placas_nvidia = ((281 * 1) * 1) + ((191 * 4) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
+            coin_icon = '<i class="cc ZEC-alt" title="ZEC"></i>';
+            coin_sigla = 'ZEC';
         }
 
         if(coin == 'etc'){
             wallet = '0x1932A6a770185F9b2b5B50Ee1ea97B44DAf00953';
-            min_saque = 1.00000000;
+            min_saque = 0.35000000;
+            coin_currency = 113;
+            poder_placas_amd = (28.75 * 2) + (30.32 * 1) + (12.3 * 1);
+            poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
+            poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
+            coin_icon = '<i class="cc ETC-alt" title="ETC"></i>';
+            coin_sigla = 'ETC';
         }
+        
+        $(".coin-icon").html(coin_icon);
+        $(".coin_sigla").html(coin_sigla);
 
         if(placas == 1){ poder_placas = poder_placas_amd; }
         if(placas == 2){ poder_placas = poder_placas_nvidia; }
