@@ -139,8 +139,8 @@
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
         var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, balance = 0;
         var minerado = "", progresso = "";
-        var poder_placas_amd = (28.75 * 2) + (30.32 * 1) + (12.3 * 1);
-        var poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
+        var poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (14.5 * 3)*/;
+        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 1) * 1) + ((15.03 * 5) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
         var placas = 0;
         var coin_icon = '<i class="cc ETH-alt" title="ETH"></i>';
@@ -150,7 +150,7 @@
             wallet = 't1LFzpH46orZNPR5d9dSyENeYJqb2sysvYu';
             min_saque = 0.01000000;
             coin_currency = 1250;
-            poder_placas_amd = (282 * 2) + (303 * 1) + (133 * 3);
+            poder_placas_amd = 0/*(282 * 2) + (303 * 1) + (133 * 3)*/;
             poder_placas_nvidia = ((281 * 1) * 1) + ((191 * 4) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
@@ -163,7 +163,7 @@
             wallet = '0x1932A6a770185F9b2b5B50Ee1ea97B44DAf00953';
             min_saque = 0.35000000;
             coin_currency = 113;
-            poder_placas_amd = (28.75 * 2) + (30.32 * 1) + (12.3 * 1);
+            poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (12.3 * 1)*/;
             poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;

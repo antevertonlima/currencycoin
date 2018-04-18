@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class GraphicsCard extends Model
 {
     protected $fillable = [
-    	'name',
-        'description',
+        'name',
+        'consumption',
+        'description',        
         'graphic_serie_id'
     ];
 

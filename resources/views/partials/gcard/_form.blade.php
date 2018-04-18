@@ -20,6 +20,12 @@
     {!! Form::error('description', $errors) !!} 
 {!! Html::closeFormGroup() !!}
 
+{!! Html::openFormGroup('consumption', $errors) !!}
+    {!! Form::label('consumption','Consumo Máximo', ['class' => 'control-label']) !!}
+    {!! Form::text('consumption', null, ['class' => 'form-control']) !!}
+    {!! Form::error('consumption', $errors) !!} 
+{!! Html::closeFormGroup() !!}
+
 {!! Html::openFormGroup() !!}
     {!! Form::submit('Salvar') !!}
 {!! Html::closeFormGroup() !!}

@@ -15,10 +15,11 @@ class CreateGraphicsCardsTable extends Migration
     {
         Schema::create('graphics_cards', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->unique();
+            $table->string('consumption')->nulable();
+            $table->string('description')->nulable();
             $table->integer('graphic_serie_id')->unsigned();
             $table->foreign('graphic_serie_id')->references('id')->on('graphic_series');
-            $table->string('name')->unique();
-            $table->string('description')->nulable();
             $table->timestamps();
         });
     }
