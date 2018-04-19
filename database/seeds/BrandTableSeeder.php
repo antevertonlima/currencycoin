@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\GraphicType;
 use App\Models\GraphicSerie;
 use App\Models\GraphicsCard;
+use App\Models\HashrateGraphic;
 
 class BrandTableSeeder extends Seeder
 {
@@ -63,6 +64,48 @@ class BrandTableSeeder extends Seeder
             'name' => 'GIGABYTE GEFORCE GTX 1060 WINDFORCE OC 6G GV-N1060WF2OC-6GD GDDR5 PCI-EXP',
             'consumption' => '120',
             'description' => 'GIGABYTE GTX 1060 WINDFORCE OC 6G'
+        ]);
+
+        HashrateGraphic::create([
+            'state' => 'stock',
+            'hashrate' => '12.03',
+            'graphics_card_id' => 1,
+            'coin_id' => 1
+        ]);
+
+        HashrateGraphic::create([
+            'state' => 'oc',
+            'hashrate' => '15.03',
+            'graphics_card_id' => 1,
+            'coin_id' => 1
+        ]);
+
+        HashrateGraphic::create([
+            'state' => 'stock',
+            'hashrate' => '12.03',
+            'graphics_card_id' => 2,
+            'coin_id' => 1
+        ]);
+
+        HashrateGraphic::create([
+            'state' => 'oc',
+            'hashrate' => '15.03',
+            'graphics_card_id' => 2,
+            'coin_id' => 1
+        ]);
+
+        HashrateGraphic::create([
+            'state' => 'stock',
+            'hashrate' => '19.2',
+            'graphics_card_id' => 3,
+            'coin_id' => 1
+        ]);
+
+        HashrateGraphic::create([
+            'state' => 'oc',
+            'hashrate' => '24.4',
+            'graphics_card_id' => 3,
+            'coin_id' => 1
         ]);
     }
 }
