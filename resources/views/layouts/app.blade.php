@@ -10,7 +10,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'CurrencyCoin') }}</title>
 
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('assets/sb-admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 <body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+    <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'CurrencyCoin') }}</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -86,11 +86,8 @@
                 </a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-            </li>
+        <ul class="navbar-nav ml-auto" id="currency_coins">
+            
         </ul>
     </div>
 </nav>

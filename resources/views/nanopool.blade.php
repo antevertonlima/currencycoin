@@ -134,6 +134,7 @@
         var url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
         var url_dolar = "https://api.fixer.io/latest?base=USD";
         var url_coin = "https://api.cryptonator.com/api/full/"+coin+"-usd";
+        var url_coinmarketcap = "https://api.coinmarketcap.com/v1/ticker/?convert=BRL&limit=11";
         var hashrates = "Hashrates";
         var hashrate = 0, hashrate_media = 0, h1 = 0, h3 = 0, h6 = 0, h12 = 0, h24 = 0, saque_cada = 0, saque_cada_h = 0, saque_em = 0, saque_em_h = 0;
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
@@ -183,6 +184,29 @@
 
         //pegar informacoes gerais sobre a mineracao de cripto moeda
         function nanopool_general(){
+            $.ajax({
+                type: "GET",
+                url: url_coinmarketcap,
+                dataType: 'json',
+                success: function(data){
+                    var list_currency = "";
+                    var i;
+                    var coinName = 'Bitcoin';
+                    var coinSymbol = 'BTC';
+                    var coinPrice  = '';
+                    var charContador = '';
+                    
+                    for (i = 0; i < data.length; i++) { 
+                        coinName = data[i].name;
+                        coinSymbol = data[i].symbol;
+                        coinPrice = parseFloat(data[i].price_brl).toFixed(2);
+                        
+                        list_currency = list_currency + '<li class="nav-item"><a class="nav-link" href="#" title="'+coinName.toString()+'"><i class="cc '+coinSymbol.toString()+'"></i> '+coinPrice.toString()+'</a></li>';
+                    }
+                    list_currency = list_currency + '<li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out"></i>Logout</a></li>';                  
+                    $("#currency_coins").html(list_currency);                    
+            }});
+
             $.ajax({
                 type: "GET",
                 url: url_dolar,
