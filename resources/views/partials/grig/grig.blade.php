@@ -23,6 +23,8 @@
                     <th>Descrição</th>
                     <th>Grupo</th>
                     <th>Moeda</th>
+                    <th>Hash Stock</th>
+                    <th>Hash OverClock</th>
                     <th>Ações</th>
                 </tr>
               </thead>
@@ -33,6 +35,8 @@
                     <th>Descrição</th>
                     <th>Grupo</th>
                     <th>Moeda</th>
+                    <th>Hash Stock</th>
+                    <th>Hash OverClock</th>
                     <th>Ações</th>
                 </tr>
               </tfoot>
@@ -45,6 +49,31 @@
                         <td>{{ $grig->description }}</td>
                         <td>{{ $grig->miningGroup->name }}</td>
                         <td>{{ $grig->coin->name }}</td>
+
+                        @foreach ($grig->boards as $gboard)
+                            @foreach ($gboard->graphicsCard->hashrash as $item)
+                                @if ($item->state == 'oc')
+                                    <?php $miningPowerOC = $miningPowerOC + ($item->hashrate * $gboard->amount); ?>
+                                @endif  
+                                @if ($item->state == 'stock')
+                                    <?php $miningPowerST = $miningPowerST + ($item->hashrate * $gboard->amount); ?>
+                                @endif  
+                            @endforeach 
+                        @endforeach
+
+                        @if ($miningPowerOC != 0 && $miningPowerST != 0)
+                            <td>{{$miningPowerST}} {{$grig->coin->algorithm->measure}}</td>
+                            <td>{{$miningPowerOC}} {{$grig->coin->algorithm->measure}}</td>
+                            <?php $miningPowerOC = 0; $miningPowerST = 0; ?>
+                        @else
+                            <td colspan="2">
+                                <a href="{{ route('gboard.create', ['id' => $grig->id]) }}" 
+                                    class="btn btn-primary btn-sm">
+                                    <i class="fa fa-pencil-square"></i> Adicionar Equipamentos
+                                </a>
+                            </td>
+                        @endif
+                        
                         <td>
                             <a href="{{ route('grig.edit', ['id' => $grig->id]) }}" 
                                 class="btn btn-primary btn-sm">
@@ -56,6 +85,7 @@
                                 <i class="fa fa-minus-square"></i> 
                             </a>
                         </td>
+                        
                     </tr>
                   @empty
                     <tr>

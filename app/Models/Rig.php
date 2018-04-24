@@ -23,8 +23,8 @@ class Rig extends Model
         return $this->belongsTo('App\Models\Coin');
     }
 
-    public function graphicBoards()
+    public function boards()
     {
-        return $this->hasMany('App\Models\GraphicBoardRig');
+        return $this->hasMany('App\Models\GraphicBoardsRig');
     }
 }

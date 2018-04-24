@@ -52,6 +52,9 @@ Route::prefix('manager')->group(function () {
 
         Route::resource('grig', 'Manager\RigsController', ['except' => ['show','destroy']]);
         Route::get('grig/{grig}', 'Manager\RigsController@destroy')->name('grig.destroy');
+
+        Route::resource('gboard', 'Manager\GraphicBoardRigController', ['except' => ['show','destroy']]);
+        Route::get('gboard/{gboard}', 'Manager\GraphicBoardRigController@destroy')->name('gboard.destroy');
     });
     
 });

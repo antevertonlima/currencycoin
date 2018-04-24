@@ -23,8 +23,8 @@ class GraphicsCard extends Model
         return $this->hasMany('App\Models\HashrateGraphic');
     }
 
-    public function boards()
+    public function board()
     {
-        return $this->hasMany('App\Models\GraphicBoardRig');
+        return $this->hasMany('App\Models\GraphicBoardsRig');
     }
 }

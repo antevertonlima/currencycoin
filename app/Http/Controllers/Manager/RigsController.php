@@ -20,7 +20,9 @@ class RigsController extends Controller
     public function index()
     {
         $grigs = Rig::paginate(10);
-        return view('partials.grig.grig', compact('grigs'));
+        $miningPowerOC = 0;
+        $miningPowerST = 0;
+        return view('partials.grig.grig', compact('grigs','miningPowerOC','miningPowerST'));
     }
 
     /**
