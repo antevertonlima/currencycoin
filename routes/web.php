@@ -44,9 +44,6 @@ Route::prefix('manager')->group(function () {
 
         Route::resource('ghash', 'Manager\GraphicsHashController', ['except' => ['show','destroy']]);
         Route::get('ghash/{ghash}', 'Manager\GraphicsHashController@destroy')->name('ghash.destroy');
-
-        Route::resource('mgroup', 'Manager\MiningGroupController', ['except' => ['show','destroy']]);
-        Route::get('mgroup/{mgroup}', 'Manager\MiningGroupController@destroy')->name('mgroup.destroy');
     });
 
     Route::prefix('rigs')->group(function () {
