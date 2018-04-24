@@ -126,21 +126,21 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-
         $('.hashrates').tooltip({"html":true});
 
-        var coin = 'eth', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
+        var coin = 'eth', name_coin = 'ethereum', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
         var url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
         var url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
         var url_dolar = "https://api.fixer.io/latest?base=USD";
         var url_coin = "https://api.cryptonator.com/api/full/"+coin+"-usd";
+        var url_coin_mcap = "https://api.coinmarketcap.com/v1/ticker/"+name_coin+"/?convert=BRL";
         var url_coinmarketcap = "https://api.coinmarketcap.com/v1/ticker/?convert=BRL&limit=11";
         var hashrates = "Hashrates";
         var hashrate = 0, hashrate_media = 0, h1 = 0, h3 = 0, h6 = 0, h12 = 0, h24 = 0, saque_cada = 0, saque_cada_h = 0, saque_em = 0, saque_em_h = 0;
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
         var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, balance = 0;
         var minerado = "", progresso = "";
-        var poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (14.5 * 3)*/;
+        var poder_placas_amd = (28.75 * 0) + (30.32 * 0) + (14.5 * 0);
         var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 1) * 1) + ((15.03 * 5) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
         var placas = 0;
@@ -218,12 +218,22 @@
 
             $.ajax({
                 type: "GET",
-                url: url_coin,
+                url: url_coin_mcap,
                 dataType: 'json',
                 success: function(data){
-                    coin_currency = parseFloat(data.ticker.price * dolar_currency).toFixed(2);
+                    coin_currency = parseFloat(data[0].price_brl).toFixed(2);
                     if(coin_currency == 0){
-                        coin_currency = 3050.80;
+                        if(coin == 'eth'){
+                            coin_currency = 3251.21;
+                        }
+
+                        if(coin == 'etc'){
+                            coin_currency = 100.21;
+                        }
+
+                        if(coin == 'zec'){
+                            coin_currency = 1400.21;
+                        }
                     }
                     $(".coin-currency").html(coin_currency);
             }});

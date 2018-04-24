@@ -69,3 +69,42 @@
       </div>
 </div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        var url_coinmarketcap = "https://api.coinmarketcap.com/v1/ticker/?convert=BRL&limit=11";
+        nanopool_general();
+
+        var intervalo = window.setInterval(nanopool_general, 15000);
+
+        //pegar informacoes gerais sobre a mineracao de cripto moeda
+        function nanopool_general(){
+            $.ajax({
+                type: "GET",
+                url: url_coinmarketcap,
+                dataType: 'json',
+                success: function(data){
+                    var list_currency = "";
+                    var i;
+                    var coinName = 'Bitcoin';
+                    var coinSymbol = 'BTC';
+                    var coinPrice  = '';
+                    var charContador = '';
+                    
+                    for (i = 0; i < data.length; i++) { 
+                        coinName = data[i].name;
+                        coinSymbol = data[i].symbol;
+                        coinPrice = parseFloat(data[i].price_brl).toFixed(2);
+                        
+                        list_currency = list_currency + '<li class="nav-item"><a class="nav-link" href="#" title="'+coinName.toString()+'"><i class="cc '+coinSymbol.toString()+'"></i> '+coinPrice.toString()+'</a></li>';
+                    }
+                    list_currency = list_currency + '<li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out"></i>Logout</a></li>';                  
+                    $("#currency_coins").html(list_currency);                    
+            }});
+
+        }
+    });
+</script>
+@endsection

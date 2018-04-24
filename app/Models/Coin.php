@@ -17,4 +17,9 @@ class Coin extends Model
     {
         return $this->belongsTo('App\Models\Algorithm');
     }
+
+    public function rig()
+    {
+        return $this->hasMany('App\Models\Rig');
+    }
 }
