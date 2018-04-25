@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
@@ -188,6 +188,11 @@ return [
          * Application Service Providers...
          */
         Krorten\Nanopool\Providers\NanopoolProvider::class,
+
+        /*
+         * LaravelAdminLte Service Providers...
+         */
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
     ],
 

@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'braziliex' => [
+        'key' => env('BRAZILIEX_API_KEY'),
+        'secret' => env('BRAZILIEX_API_SECRET'),
+    ],
+
 ];

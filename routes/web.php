@@ -11,12 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/pool', 'SomeController@index')->name('pool');
 
 // rotas de gerenciamento (backend)
@@ -58,3 +52,10 @@ Route::prefix('manager')->group(function () {
     });
     
 });
+
+Route::get('/', function () {
+    return view('welcome');
+});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

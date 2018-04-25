@@ -1,73 +1,84 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'AdminLTE')
+
+@section('content_header')
+    <h1>Monitoramento Jquery</h1>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets/sb-admin/vendor/cryptocoins/webfont/cryptocoins.css') }}">
+
+    <!-- CSS defining icon/coin colors (optional) -->
+    <link rel="stylesheet" href="{{ asset('assets/sb-admin/vendor/cryptocoins/webfont/cryptocoins-colors.css') }}">
+@stop
 
 @section('content')
-<div class="container">
-    <!-- Icon Cards-->
     <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
-                <div class="card-body">
-                    <div class="card-body-icon">
-                        <span class="coin-icon"></span>
-                    </div>
-                    <div class="mr-5">
-                        <div><span class="coin_sigla"></span> Hoje</div>
-                        <div>R$ <span class="coin-currency"></span></div>
-                    </div>
+        <!-- Icon Cards-->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-red">
+                <span class="info-box-icon coin-icon"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"><span class="coin_sigla"></span> Hoje</span>
+                    <span class="info-box-number">R$ <span class="coin-currency"></span></span>
                 </div>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-                <div class="card-body">
-                    <div class="card-body-icon">
-                        <i class="fa fa-fw fa-usd"></i>
-                    </div>
-                    <div class="mr-5">
-                        <div>USD Hoje</div>
-                        <div>R$ <span class="usd-currency"></span></div>
-                    </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-fw fa-usd"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">USD Hoje</span>
+                    <span class="info-box-number">R$ <span class="usd-currency"></span></span>
                 </div>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success o-hidden h-100">
-                <div class="card-body">
-                    <div class="card-body-icon">
-                        <i class="fa fa-fw fa-bank"></i>
-                    </div>
-                    <div class="mr-5">
-                        <div>Saque a cada</div>
-                        <div><b><span class="saque_dias"></span></b></div>
-                    </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon coin-icon"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-number">Saque a cada</span>
+                    <span class="info-box-text saque_dias"></span>
                 </div>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-danger o-hidden h-100">
-                <div class="card-body">
-                    <div class="card-body-icon">
-                        <i class="fa fa-fw fa-money"></i>
-                    </div>
-                    <div class="mr-5">
-                        <div>Próximo saque</div>
-                        <div><b><span class="falta_dias"></span></b></div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon coin-icon"></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-number">Próximo saque</span>
+                    <span class="info-box-text falta_dias"></span>    
+                    <div class="minerado_adminlte">
+                        
                     </div>
                 </div>
+                <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="card-header">
+            <div class="box">
+                <div class="box-header">
                     <span class="coin-icon"></span>
                     A receber: <b><span class="coin-balance"></span></b> - R$ <b><span class="coin-balance-brl"></span></b>
                     /
                     Valor para saque: <b><span class="min_saque"></span></b> - R$ <b><span class="min_saque_brl"></span></b>
                 </div>
-                <div class="card-body">
+                <div class="box-body">
                     <div class="progress minerado"></div>
                 </div>
             </div>
@@ -76,11 +87,13 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <span class="coin-icon"></span> Analises
+            <div class="box">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        <span class="coin-icon"></span> Analises
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="box-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
@@ -110,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
+                <div class="box-footer">
                     <h4>
                           <span class="hashrates" data-toggle="tooltip" data-html="true">Hashrate</span>
                     </h4>
@@ -120,10 +133,10 @@
             </div>
         </div>
     </div>
-</div>
-@endsection
 
-@section('scripts')
+@stop
+
+@section('js')
 <script type="text/javascript">
     $(document).ready(function(){
         $('.hashrates').tooltip({"html":true});
@@ -138,8 +151,8 @@
         var hashrates = "Hashrates";
         var hashrate = 0, hashrate_media = 0, h1 = 0, h3 = 0, h6 = 0, h12 = 0, h24 = 0, saque_cada = 0, saque_cada_h = 0, saque_em = 0, saque_em_h = 0;
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
-        var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, balance = 0;
-        var minerado = "", progresso = "";
+        var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, min_saque = parseFloat(min_saque).toFixed(8), balance = 0;
+        var minerado = "", progresso = "", progresso_adminlte = "";
         var poder_placas_amd = (28.75 * 0) + (30.32 * 0) + (14.5 * 0);
         var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 1) * 1) + ((15.03 * 5) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
@@ -150,6 +163,7 @@
         if(coin == 'zec'){
             wallet = 't1LFzpH46orZNPR5d9dSyENeYJqb2sysvYu';
             min_saque = 0.01000000;
+            min_saque = parseFloat(min_saque).toFixed(8);
             coin_currency = 1250;
             poder_placas_amd = 0/*(282 * 2) + (303 * 1) + (133 * 3)*/;
             poder_placas_nvidia = ((281 * 1) * 1) + ((191 * 4) * 1);
@@ -163,6 +177,7 @@
         if(coin == 'etc'){
             wallet = '0x1932A6a770185F9b2b5B50Ee1ea97B44DAf00953';
             min_saque = 0.35000000;
+            min_saque = parseFloat(min_saque).toFixed(8);
             coin_currency = 113;
             poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (12.3 * 1)*/;
             poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
@@ -266,6 +281,9 @@
                 success: function(data){
                     minerado = parseFloat((data.data.balance/min_saque) * 100).toFixed(2) + "%";
                     progresso = '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'+ minerado +'" aria-valuemin="0" aria-valuemax="100" style="width:'+ minerado +'">'+ minerado +'</div>';
+                    progresso_adminlte = '<div class="progress"><div class="progress-bar" style="width: '+minerado+'"></div></div>';
+                    progresso_adminlte = progresso_adminlte + '<span class="progress-description">'+minerado+' de '+min_saque+'</span>';
+
                     h1 = Number(data.data.avgHashrate.h1);
                     h3 = Number(data.data.avgHashrate.h3);
                     h6 = Number(data.data.avgHashrate.h6);
@@ -295,6 +313,7 @@
                     $(".min_saque").html(min_saque);
                     $(".min_saque_brl").html(parseFloat(min_saque * coin_currency).toFixed(2));
                     $(".minerado").html(progresso);
+                    $(".minerado_adminlte").html(progresso_adminlte);
                     $(".coin-balance").html(balance);
                     $(".coin-balance-brl").html(parseFloat(balance * coin_currency).toFixed(2));
 
@@ -338,4 +357,4 @@
         }
     });
 </script>
-@endsection
+@stop
