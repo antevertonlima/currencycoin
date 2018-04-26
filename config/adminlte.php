@@ -116,13 +116,13 @@ return [
         ],
         [
             'text'        => 'Pages',
-            'url'         => 'admin/pages',
+            'url'         => '#',
             'icon'        => 'file',
             'label'       => 4,
             'label_color' => 'success',
         ],
         [
-            'text' => 'Acompanhar JS',
+            'text' => 'Monitoramento JS',
             'url'  => '/pool',
             'icon' => 'file',
         ],

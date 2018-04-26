@@ -7,9 +7,8 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets/sb-admin/vendor/cryptocoins/webfont/cryptocoins.css') }}">
-
     <!-- CSS defining icon/coin colors (optional) -->
+    <link rel="stylesheet" href="{{ asset('assets/sb-admin/vendor/cryptocoins/webfont/cryptocoins.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/sb-admin/vendor/cryptocoins/webfont/cryptocoins-colors.css') }}">
 @stop
 
@@ -42,7 +41,7 @@
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-aqua">
-                <span class="info-box-icon coin-icon"></span>
+                <span class="info-box-icon"><i class="fa fa-fw fa-money"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-number">Saque a cada</span>
@@ -53,8 +52,8 @@
             <!-- /.info-box -->
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-aqua">
-                <span class="info-box-icon coin-icon"></span>
+            <div class="info-box bg-yellow">
+                <span class="info-box-icon"><i class="fa fa-fw fa-bank"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-number">Próximo saque</span>
@@ -70,23 +69,20 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-5">
             <div class="box">
                 <div class="box-header">
-                    <span class="coin-icon"></span>
-                    A receber: <b><span class="coin-balance"></span></b> - R$ <b><span class="coin-balance-brl"></span></b>
-                    /
-                    Valor para saque: <b><span class="min_saque"></span></b> - R$ <b><span class="min_saque_brl"></span></b>
+                    <p><span class="coin-icon"></span>
+                        A receber: <b><span class="coin-balance"></span></b> - R$ <b><span class="coin-balance-brl"></span></b></p>
+                    <p><span class="coin-icon"></span>
+                        Valor para saque: <b><span class="min_saque"></span></b> - R$ <b><span class="min_saque_brl"></span></b></p>
                 </div>
                 <div class="box-body">
-                    <div class="progress minerado"></div>
+                    <div class="progress progress-xxs minerado"></div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-7">
             <div class="box">
                 <div class="box-header with-border">
                     <div class="box-title">
@@ -94,32 +90,34 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                <span class="coin-icon"></span> Estimativa de ganho
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                                <span class="coin-icon"></span> Pagamentos realizados
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
-                                <span class="coin-icon"></span> Trabalhadores
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="table_calc"></div>
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="table_pay"></div>
-                        </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            Em Produção!
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="active">
+                                <a id="calculate-tab" data-toggle="tab" href="#calculate" role="tab" aria-expanded="true">
+                                    <span class="coin-icon"></span> Estimativa de ganho
+                                </a>
+                            </li>
+                            <li>
+                                <a  id="payments-tab" data-toggle="tab" href="#payments" role="tab" aria-expanded="false">
+                                    <span class="coin-icon"></span> Pagamentos realizados
+                                </a>
+                            </li>
+                            <li>
+                                <a id="workers-tab" data-toggle="tab" href="#workers" role="tab" aria-expanded="false">
+                                    <span class="coin-icon"></span> Trabalhadores
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane active" id="calculate">
+                                <div class="table_calc"></div>
+                            </div>
+                            <div class="tab-pane fade" id="payments">
+                                <div class="table_pay"></div>
+                            </div>
+                            <div class="tab-pane fade" id="workers">
+                                Em Produção!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -280,7 +278,7 @@
                 dataType: 'json',
                 success: function(data){
                     minerado = parseFloat((data.data.balance/min_saque) * 100).toFixed(2) + "%";
-                    progresso = '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'+ minerado +'" aria-valuemin="0" aria-valuemax="100" style="width:'+ minerado +'">'+ minerado +'</div>';
+                    progresso = '<div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="'+ minerado +'" aria-valuemin="0" aria-valuemax="100" style="width:'+ minerado +'">'+ minerado +'</div>';
                     progresso_adminlte = '<div class="progress"><div class="progress-bar" style="width: '+minerado+'"></div></div>';
                     progresso_adminlte = progresso_adminlte + '<span class="progress-description">'+minerado+' de '+min_saque+'</span>';
 
