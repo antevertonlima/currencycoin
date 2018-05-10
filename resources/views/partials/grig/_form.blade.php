@@ -16,16 +16,16 @@
 
 {!! Html::openFormGroup('mining_group_id', $errors) !!}
     {!! Form::label('mining_group_id','Grupo', ['class' => 'control-label']) !!}
-    {!! Form::select('mining_group_id', $mgroup, null, ['class' => 'form-control','multiple' => 'multiple']) !!}
+    {!! Form::select('mining_group_id', $mgroup, null, ['class' => 'form-control select2','tabindex' => '-1','aria-hidden' => 'true']) !!}
     {!! Form::error('mining_group_id', $errors) !!} 
 {!! Html::closeFormGroup() !!}
 
 {!! Html::openFormGroup('coin_id', $errors) !!}
     {!! Form::label('coin_id','Moeda', ['class' => 'control-label']) !!}
-    {!! Form::select('coin_id', $coin, null, ['class' => 'form-control','multiple' => 'multiple']) !!}
+    {!! Form::select('coin_id', $coin, null, ['class' => 'form-control select2','tabindex' => '-1','aria-hidden' => 'true']) !!}
     {!! Form::error('coin_id', $errors) !!} 
 {!! Html::closeFormGroup() !!}
 
 {!! Html::openFormGroup() !!}
-    {!! Form::submit('Salvar') !!}
+{!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
 {!! Html::closeFormGroup() !!}

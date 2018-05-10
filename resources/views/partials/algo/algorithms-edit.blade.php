@@ -1,19 +1,32 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'CurrencyCoin - Editar AAlgoritimo')
+
+@section('content_header')
+    <h1>Editar {{ $algo->name }}</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i> Editar {{ $algo->name }}
-        </div>
-        <div class="card-body">
-        {{ Form::model($algo, ['route' => ['algo.update', $algo->id], 'method' => 'PUT']) }}
+<div class="row">
+    @if (Session::has('message'))
+    {!! Html::flashMessages(session()->get('message')) !!}
+    @endif
+    <div class="col-sm-12">
+        <div class="box box-danger">
+            <div class="box-header">
+                <i class="fa fa-table"></i>
+            </div>
+            <div class="box-body">
+                {{ Form::model($algo, ['route' => ['algo.update', $algo->id], 'method' => 'PUT']) }}
 
-        @include('partials.algo._form')
-        
-        {!!  Form::close()  !!}
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                @include('partials.algo._form')
+                
+                {!!  Form::close()  !!}
+            </div>
+            <div class="box-footer">
+                
+            </div>
+        </div> 
     </div>
 </div>
 @endsection

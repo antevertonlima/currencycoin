@@ -21,5 +21,5 @@
 {!! Html::closeFormGroup() !!}
 
 {!! Html::openFormGroup() !!}
-    {!! Form::submit('Salvar') !!}
+{!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
 {!! Html::closeFormGroup() !!}

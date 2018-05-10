@@ -69,21 +69,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-5">
-            <div class="box">
-                <div class="box-header">
-                    <p><span class="coin-icon"></span>
-                        A receber: <b><span class="coin-balance"></span></b> - R$ <b><span class="coin-balance-brl"></span></b></p>
-                    <p><span class="coin-icon"></span>
-                        Valor para saque: <b><span class="min_saque"></span></b> - R$ <b><span class="min_saque_brl"></span></b></p>
-                </div>
-                <div class="box-body">
-                    <div class="progress progress-xxs minerado"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7">
-            <div class="box">
+
+        <div class="col-md-12">
+            <div class="box box-danger">
                 <div class="box-header with-border">
                     <div class="box-title">
                         <span class="coin-icon"></span> Analises
@@ -116,20 +104,28 @@
                                 <div class="table_pay"></div>
                             </div>
                             <div class="tab-pane fade" id="workers">
-                                Em Produção!
+                                <div class="table_worker"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="description-block border-right">
+                        <span class="description-percentage text-green"><span class="coin-balance"></span></span>
+                        <h5 class="description-header">R$ <span class="coin-balance-brl"></span></h5>
+                        <span class="description-text">A RECEBER</span>
+                    </div>
+                <!-- /.description-block -->
+                </div>
                 <div class="box-footer">
-                    <h4>
-                          <span class="hashrates" data-toggle="tooltip" data-html="true">Hashrate</span>
-                    </h4>
-
-                    Placas: <b><span class="poder_placas"></span></b> - Média: <b><span class="media_hash"></span></b> - 24h: <b><span class="hash24"></span></b>
+                    <h4><span class="hashrates" data-toggle="tooltip" data-html="true">Hashrate</span></h4>
+                    Placas: <b><span class="poder_placas"></span></b> - 
+                    Média: <b><span class="media_hash"></span></b> - 
+                    24h: <b><span class="hash24"></span></b>
                 </div>
             </div>
         </div>
+        
     </div>
 
 @stop
@@ -143,16 +139,17 @@
         var url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
         var url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
         var url_dolar = "https://api.fixer.io/latest?base=USD";
+        var url_nool_workers = "https://api.nanopool.org/v1/"+coin+"/workers/"+wallet;
         var url_coin = "https://api.cryptonator.com/api/full/"+coin+"-usd";
         var url_coin_mcap = "https://api.coinmarketcap.com/v1/ticker/"+name_coin+"/?convert=BRL";
         var url_coinmarketcap = "https://api.coinmarketcap.com/v1/ticker/?convert=BRL&limit=11";
         var hashrates = "Hashrates";
         var hashrate = 0, hashrate_media = 0, h1 = 0, h3 = 0, h6 = 0, h12 = 0, h24 = 0, saque_cada = 0, saque_cada_h = 0, saque_em = 0, saque_em_h = 0;
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
-        var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, min_saque = parseFloat(min_saque).toFixed(8), balance = 0;
+        var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, min_saque = parseFloat(min_saque).toFixed(4), balance = 0;
         var minerado = "", progresso = "", progresso_adminlte = "";
-        var poder_placas_amd = (28.75 * 0) + (30.32 * 0) + (14.5 * 0);
-        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 1) * 1) + ((15.03 * 5) * 1);
+        var poder_placas_amd = (28.66 * 2) + (30.32 * 0) + (14.5 * 0);
+        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 0) * 1) + ((15.03 * 5) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
         var placas = 0;
         var coin_icon = '<i class="cc ETH-alt" title="ETH"></i>';
@@ -161,13 +158,14 @@
         if(coin == 'zec'){
             wallet = 't1LFzpH46orZNPR5d9dSyENeYJqb2sysvYu';
             min_saque = 0.01000000;
-            min_saque = parseFloat(min_saque).toFixed(8);
+            min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 1250;
             poder_placas_amd = 0/*(282 * 2) + (303 * 1) + (133 * 3)*/;
             poder_placas_nvidia = ((281 * 1) * 1) + ((191 * 4) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
+            url_nool_workers = "https://api.nanopool.org/v1/"+coin+"/workers/"+wallet;
             coin_icon = '<i class="cc ZEC-alt" title="ZEC"></i>';
             coin_sigla = 'ZEC';
         }
@@ -175,15 +173,31 @@
         if(coin == 'etc'){
             wallet = '0x1932A6a770185F9b2b5B50Ee1ea97B44DAf00953';
             min_saque = 0.35000000;
-            min_saque = parseFloat(min_saque).toFixed(8);
+            min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 113;
             poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (12.3 * 1)*/;
             poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
+            url_nool_workers = "https://api.nanopool.org/v1/"+coin+"/workers/"+wallet;
             coin_icon = '<i class="cc ETC-alt" title="ETC"></i>';
             coin_sigla = 'ETC';
+        }
+
+        if(coin == 'xmr'){
+            wallet = '4JcUzZmBTaNRvH6BkoXRuEjd3odbKztEb8e1gVkMNBWuHRRxkbSRqfqQEBrx16GTfmZtF3tUMRWBaWGBDAugkebK3PUs5Q1XViR198xhQz';
+            min_saque = 0.35000000;
+            min_saque = parseFloat(min_saque).toFixed(4);
+            coin_currency = 113;
+            poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (12.3 * 1)*/;
+            poder_placas_nvidia = ((31.1 * 6) * 0) + ((555.05 * 1) * 1) + ((337.25 * 4) * 1);
+            poder_placas = poder_placas_amd + poder_placas_nvidia;
+            url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
+            url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
+            url_nool_workers = "https://api.nanopool.org/v1/"+coin+"/workers/"+wallet;
+            coin_icon = '<i class="cc ETC-alt" title="ETC"></i>';
+            coin_sigla = 'XMR';
         }
         
         $(".coin-icon").html(coin_icon);
@@ -274,13 +288,39 @@
 
             $.ajax({
                 type: "GET",
+                url: url_nool_workers,
+                dataType: 'json',
+                success: function(workers){
+                    var trabalhadores = workers.data;
+                    var total_worker = 0;
+                    var total_worker_hash = 0;
+                    var table_worker = '<table class="table table-bordered table-hover">';
+                    table_worker = table_worker + '<thead><th scope="col">ID</th><th scope="col">Hashrate</th><th scope="col">Ultimo Achado</th><th scope="col">Achados</th></thead>';
+                    
+                    console.log(trabalhadores);
+                    $.each(trabalhadores, function (index, valor) {
+                        
+                        table_worker = table_worker + '<tr><td>'+ valor.id +'</td><td>'+ valor.hashrate +'</td><td>'+ new Date(valor.lastShare * 1000).toUTCString() +'</td><td>'+ valor.rating +'</td></tr>';
+                        total_worker = total_worker + valor.rating;
+                        total_worker_hash = total_worker_hash + valor.hashrate;
+                        
+                    });
+                    table_worker = table_worker + '<tr><td align="right"><b>Total</b></td><td align="right"><b>'+total_worker_hash+'</b></td><td colspan="2" align="right"><i class="cc '+coin.toUpperCase()+'"></i> '+ total_worker +'</td></tr>';
+
+                    table_worker = table_worker + '</table>';
+                    console.log(table_worker);
+                    $(".table_worker").html(table_worker);
+            }});
+
+            $.ajax({
+                type: "GET",
                 url: url_nool_general,
                 dataType: 'json',
                 success: function(data){
                     minerado = parseFloat((data.data.balance/min_saque) * 100).toFixed(2) + "%";
                     progresso = '<div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="'+ minerado +'" aria-valuemin="0" aria-valuemax="100" style="width:'+ minerado +'">'+ minerado +'</div>';
                     progresso_adminlte = '<div class="progress"><div class="progress-bar" style="width: '+minerado+'"></div></div>';
-                    progresso_adminlte = progresso_adminlte + '<span class="progress-description">'+minerado+' de '+min_saque+'</span>';
+                    progresso_adminlte = progresso_adminlte + '<span class="progress-description">'+minerado+' de '+min_saque+' - R$ '+parseFloat(min_saque * coin_currency).toFixed(2)+'</span>';
 
                     h1 = Number(data.data.avgHashrate.h1);
                     h3 = Number(data.data.avgHashrate.h3);
@@ -322,6 +362,7 @@
                             url: url_nool_calculator,
                             dataType: 'json',
                             success: function(datacalc){
+                                //console.log(datacalc);
                                 var table_calc = '<table class="table table-bordered table-hover">';
 
                                 table_calc = table_calc + '<thead><th scope="col">Frequencia</th><th scope="col">Fração</th><th scope="col">Real</th><th scope="col">Bitcoin</th></thead>';
@@ -332,7 +373,9 @@
                                     name = name.replace('day','Por dia');
                                     name = name.replace('week','Por semana');
                                     name = name.replace('month','Por mes');
-                                    table_calc = table_calc + '<tr><td>'+ name +'</td><td><i class="cc '+coin.toUpperCase()+'"></i> '+ parseFloat(value.coins).toFixed(8) +'</td><td>R$ '+ parseFloat(value.coins * coin_currency).toFixed(2) +'</td><td><i class="cc BTC"></i> '+ parseFloat(value.bitcoins).toFixed(8) +'</td></tr>';
+                                    if (name != 'prices') {
+                                        table_calc = table_calc + '<tr><td>'+ name +'</td><td><i class="cc '+coin.toUpperCase()+'"></i> '+ parseFloat(value.coins).toFixed(8) +'</td><td>R$ '+ parseFloat(value.coins * coin_currency).toFixed(2) +'</td><td><i class="cc BTC"></i> '+ parseFloat(value.bitcoins).toFixed(8) +'</td></tr>';                                                                                
+                                    }
                                 });
                                 table_calc = table_calc + '</table>';
                                 $(".table_calc").html(table_calc);

@@ -1,19 +1,32 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'CurrencyCoin - Cadastrar Nova Marca')
+
+@section('content_header')
+    <h1>Cadastrar Nova Marca</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i> Cadastrar Nova Criptomoeda
-        </div>
-        <div class="card-body">
-            {{ Form::open(['route' => 'brand.store']) }}
+<div class="row">
+    @if (Session::has('message'))
+    {!! Html::flashMessages(session()->get('message')) !!}
+    @endif
+    <div class="col-sm-12">
+        <div class="box box-danger">
+            <div class="box-header">
+                <i class="fa fa-table"></i>
+            </div>
+            <div class="box-body">
+                {{ Form::open(['route' => 'brand.store']) }}
 
-            @include('partials.brand._form')
-            
-            {!!  Form::close()  !!}
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                @include('partials.brand._form')
+                
+                {!!  Form::close()  !!}  
+            </div>
+            <div class="box-footer">
+                
+            </div>
+        </div> 
     </div>
 </div>
 @endsection

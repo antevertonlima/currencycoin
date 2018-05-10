@@ -1,19 +1,41 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'CurrencyCoin - Cadastrar Novo Grupo de Mineração')
+
+@section('content_header')
+    <h1>Cadastrar Novo Grupo de Mineração</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i> Cadastrar Novo Grupo de Mineração
-        </div>
-        <div class="card-body">
-            {{ Form::open(['route' => 'grig.store']) }}
-
-            @include('partials.grig._form')
-            
-            {!!  Form::close()  !!}
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+<div class="row">
+    @if (Session::has('message'))
+    {!! Html::flashMessages(session()->get('message')) !!}
+    @endif
+    <div class="col-sm-12">
+        <div class="box box-danger">
+            <div class="box-header">
+                <i class="fa fa-table"></i>
+            </div>
+            <div class="box-body">
+                {{ Form::open(['route' => 'grig.store']) }}
+    
+                @include('partials.grig._form')
+                
+                {!!  Form::close()  !!}
+            </div>
+            <div class="box-footer">
+                
+            </div>
+        </div> 
     </div>
 </div>
 @endsection
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#mining_group_id').select2();
+        $('#coin_id').select2();
+    });    
+</script>
+@stop

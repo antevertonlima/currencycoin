@@ -1,19 +1,32 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', "CurrencyCoin - Editar " . strtoupper($brand->name))
+
+@section('content_header')
+    <h1>Editar {{ strtoupper($brand->name) }}</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i> Editar {{ strtoupper($brand->abbreviation) }}
-        </div>
-        <div class="card-body">
-            {{ Form::model($brand, ['route' => ['brand.update', $brand->id], 'method' => 'PUT']) }}
+<div class="row">
+    @if (Session::has('message'))
+    {!! Html::flashMessages(session()->get('message')) !!}
+    @endif
+    <div class="col-sm-12">
+        <div class="box box-danger">
+            <div class="box-header">
+                <i class="fa fa-table"></i>
+            </div>
+            <div class="box-body">
+                {{ Form::model($brand, ['route' => ['brand.update', $brand->id], 'method' => 'PUT']) }}
 
-            @include('partials.brand._form')
-            
-            {!!  Form::close()  !!}
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                @include('partials.brand._form')
+                
+                {!!  Form::close()  !!}   
+            </div>
+            <div class="box-footer">
+                
+            </div>
+        </div> 
     </div>
 </div>
 @endsection

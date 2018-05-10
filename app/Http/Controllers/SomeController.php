@@ -11,6 +11,8 @@ class SomeController extends BaseController
 
     public function index()
     {
-        return view('nanopool');
+        //$balance_braziliex = $this->balance();
+        $balance_braziliex = null;
+        return view('nanopool',compact('balance_braziliex'));
     }
 }
