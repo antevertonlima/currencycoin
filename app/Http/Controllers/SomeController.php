@@ -11,8 +11,8 @@ class SomeController extends BaseController
 
     public function index()
     {
-        //$balance_braziliex = $this->balance();
-        $balance_braziliex = null;
-        return view('nanopool',compact('balance_braziliex'));
+        //$currencys_braziliex = $this->currencys('ticker','eth');
+        $currencys_braziliex = null;
+        return view('nanopool',compact('currencys_braziliex'));
     }
 }

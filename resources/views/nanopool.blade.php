@@ -135,7 +135,7 @@
     $(document).ready(function(){
         $('.hashrates').tooltip({"html":true});
 
-        var coin = 'eth', name_coin = 'ethereum', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
+        var coin = "{{request()->route()->coin}}", name_coin = 'ethereum', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
         var url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
         var url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
         var url_dolar = "https://api.fixer.io/latest?base=USD";
@@ -143,13 +143,14 @@
         var url_coin = "https://api.cryptonator.com/api/full/"+coin+"-usd";
         var url_coin_mcap = "https://api.coinmarketcap.com/v1/ticker/"+name_coin+"/?convert=BRL";
         var url_coinmarketcap = "https://api.coinmarketcap.com/v1/ticker/?convert=BRL&limit=11";
+        var url_coin_braziliex = "https://braziliex.com/api/v1/public/ticker/"+coin+"_brl";
         var hashrates = "Hashrates";
         var hashrate = 0, hashrate_media = 0, h1 = 0, h3 = 0, h6 = 0, h12 = 0, h24 = 0, saque_cada = 0, saque_cada_h = 0, saque_em = 0, saque_em_h = 0;
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
         var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, min_saque = parseFloat(min_saque).toFixed(4), balance = 0;
         var minerado = "", progresso = "", progresso_adminlte = "";
-        var poder_placas_amd = (28.66 * 2) + (30.32 * 0) + (14.5 * 0);
-        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 0) * 1) + ((15.03 * 5) * 1);
+        var poder_placas_amd = (27.28 * 2) + (30.32 * 0) + (14.5 * 0);
+        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 0) * 1) + ((14.84 * 5) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
         var placas = 0;
         var coin_icon = '<i class="cc ETH-alt" title="ETH"></i>';
@@ -160,8 +161,8 @@
             min_saque = 0.01000000;
             min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 1250;
-            poder_placas_amd = 0/*(282 * 2) + (303 * 1) + (133 * 3)*/;
-            poder_placas_nvidia = ((281 * 1) * 1) + ((191 * 4) * 1);
+            poder_placas_amd = (282 * 2) + (303 * 0) + (133 * 0);
+            poder_placas_nvidia = ((281 * 1) * 0) + ((191 * 5) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
@@ -175,8 +176,8 @@
             min_saque = 0.35000000;
             min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 113;
-            poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (12.3 * 1)*/;
-            poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 1) + ((15.03 * 4) * 1);
+            poder_placas_amd = (28.75 * 2) + (30.32 * 0) + (12.3 * 0);
+            poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 0) + ((15.03 * 5) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
@@ -190,8 +191,8 @@
             min_saque = 0.35000000;
             min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 113;
-            poder_placas_amd = 0/*(28.75 * 2) + (30.32 * 1) + (12.3 * 1)*/;
-            poder_placas_nvidia = ((31.1 * 6) * 0) + ((555.05 * 1) * 1) + ((337.25 * 4) * 1);
+            poder_placas_amd = (650 * 2) + (30.32 * 0) + (12.3 * 0);
+            poder_placas_nvidia = ((31.1 * 6) * 0) + ((555.05 * 1) * 0) + ((325 * 5) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
@@ -245,10 +246,12 @@
 
             $.ajax({
                 type: "GET",
-                url: url_coin_mcap,
+                url: url_coin_braziliex,
                 dataType: 'json',
                 success: function(data){
-                    coin_currency = parseFloat(data[0].price_brl).toFixed(2);
+                    //console.log(data);
+                    //coin_currency = parseFloat(data[0].price_brl).toFixed(2);
+                    coin_currency = parseFloat(data.last).toFixed(2);
                     if(coin_currency == 0){
                         if(coin == 'eth'){
                             coin_currency = 3251.21;
@@ -297,7 +300,7 @@
                     var table_worker = '<table class="table table-bordered table-hover">';
                     table_worker = table_worker + '<thead><th scope="col">ID</th><th scope="col">Hashrate</th><th scope="col">Ultimo Achado</th><th scope="col">Achados</th></thead>';
                     
-                    console.log(trabalhadores);
+                    //console.log(trabalhadores);
                     $.each(trabalhadores, function (index, valor) {
                         
                         table_worker = table_worker + '<tr><td>'+ valor.id +'</td><td>'+ valor.hashrate +'</td><td>'+ new Date(valor.lastShare * 1000).toUTCString() +'</td><td>'+ valor.rating +'</td></tr>';
@@ -308,7 +311,7 @@
                     table_worker = table_worker + '<tr><td align="right"><b>Total</b></td><td align="right"><b>'+total_worker_hash+'</b></td><td colspan="2" align="right"><i class="cc '+coin.toUpperCase()+'"></i> '+ total_worker +'</td></tr>';
 
                     table_worker = table_worker + '</table>';
-                    console.log(table_worker);
+                    //console.log(table_worker);
                     $(".table_worker").html(table_worker);
             }});
 
@@ -317,19 +320,39 @@
                 url: url_nool_general,
                 dataType: 'json',
                 success: function(data){
-                    minerado = parseFloat((data.data.balance/min_saque) * 100).toFixed(2) + "%";
+
+                    if(data.status === false){
+                        balance = 0;
+                        h1 = 0;
+                        h3 = 0;
+                        h6 = 0;
+                        h12 = 0;
+                        h24 = 0;
+                        hashrate = 0;
+                    } else {
+                        balance = data.data.balance;
+                        h1 = Number(data.data.avgHashrate.h1);
+                        h3 = Number(data.data.avgHashrate.h3);
+                        h6 = Number(data.data.avgHashrate.h6);
+                        h12 = Number(data.data.avgHashrate.h12);
+                        h24 = Number(data.data.avgHashrate.h24);
+                        hashrate = data.data.hashrate;
+                        if(balance === undefined){
+                            balance = 0;
+                            h1 = 0;
+                            h3 = 0;
+                            h6 = 0;
+                            h12 = 0;
+                            h24 = 0;
+                            hashrate = 0;
+                        }
+                    }     
+
+                    minerado = parseFloat((balance/min_saque) * 100).toFixed(2) + "%";
                     progresso = '<div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="'+ minerado +'" aria-valuemin="0" aria-valuemax="100" style="width:'+ minerado +'">'+ minerado +'</div>';
                     progresso_adminlte = '<div class="progress"><div class="progress-bar" style="width: '+minerado+'"></div></div>';
                     progresso_adminlte = progresso_adminlte + '<span class="progress-description">'+minerado+' de '+min_saque+' - R$ '+parseFloat(min_saque * coin_currency).toFixed(2)+'</span>';
-
-                    h1 = Number(data.data.avgHashrate.h1);
-                    h3 = Number(data.data.avgHashrate.h3);
-                    h6 = Number(data.data.avgHashrate.h6);
-                    h12 = Number(data.data.avgHashrate.h12);
-                    h24 = Number(data.data.avgHashrate.h24);
-                    balance = data.data.balance;
-                    hashrate = data.data.hashrate;
-
+                    
                     hashrate_media = (h1 + h3 + h6 + h12 + h24) / 5;
 
                     //poder_placas = 229.38;

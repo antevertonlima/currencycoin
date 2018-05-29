@@ -122,9 +122,30 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text' => 'Monitoramento JS',
-            'url'  => '/pool',
-            'icon' => 'file',
+            'text'    => 'Monitoramento JS',
+            'icon-person'    => 'cc BTC',
+            'submenu' => [
+                [
+                    'text' => 'Ethereum',
+                    'url'  => '/pool/eth',
+                    'icon-person' => 'cc ETH',
+                ],
+                [
+                    'text' => 'Ethereum Classic',
+                    'url'  => '/pool/etc',
+                    'icon-person' => 'cc ETC',
+                ],
+                [
+                    'text' => 'ZCash',
+                    'url'  => '/pool/zec',
+                    'icon-person' => 'cc ZEC',
+                ],
+                [
+                    'text' => 'Monero',
+                    'url'  => '/pool/xmr',
+                    'icon-person' => 'cc XMR',
+                ],
+            ]
         ],
         'ACCOUNT SETTINGS',
         [

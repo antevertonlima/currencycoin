@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/pool', 'SomeController@index')->name('pool');
+Route::get('/pool/{coin}', 'SomeController@index')->name('pool');
 
 // rotas de gerenciamento (backend)
 Route::prefix('manager')->group(function () {   

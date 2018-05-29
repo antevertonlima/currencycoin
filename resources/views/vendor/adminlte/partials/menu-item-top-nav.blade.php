@@ -4,7 +4,11 @@
            @if (isset($item['submenu'])) class="dropdown-toggle" data-toggle="dropdown" @endif
            @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
-            <i class="fa fa-fw fa-{{ $item['icon'] or 'circle-o' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            @if (isset($item['icon-person']))
+                <i class="{{ $item['icon-person'] }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            @else
+                <i class="fa fa-fw fa-{{ $item['icon'] or 'circle-o' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            @endif
             {{ $item['text'] }}
             @if (isset($item['label']))
                 <span class="label label-{{ $item['label_color'] or 'primary' }}">{{ $item['label'] }}</span>
@@ -24,7 +28,11 @@
                     @else
                     <li class="{{ $subitem['top_nav_class'] }}">
                         <a href="{{ $subitem['href'] }}">
-                            <i class="fa fa-{{ $subitem['icon'] or 'circle-o' }} {{ isset($subitem['icon_color']) ? 'text-' . $subitem['icon_color'] : '' }}"></i>
+                            @if (isset($subitem['icon-person']))
+                                <i class="{{ $subitem['icon-person'] }} {{ isset($subitem['icon_color']) ? 'text-' . $subitem['icon_color'] : '' }}"></i>
+                            @else
+                                <i class="fa fa-{{ $subitem['icon'] or 'circle-o' }} {{ isset($subitem['icon_color']) ? 'text-' . $subitem['icon_color'] : '' }}"></i>
+                            @endif
                             {{ $subitem['text'] }}
                             @if (isset($subitem['label']))
                                 <span class="label label-{{ $subitem['label_color'] or 'primary' }}">{{ $subitem['label'] }}</span>
