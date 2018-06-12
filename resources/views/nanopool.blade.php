@@ -135,7 +135,7 @@
     $(document).ready(function(){
         $('.hashrates').tooltip({"html":true});
 
-        var coin = "{{request()->route()->coin}}", name_coin = 'ethereum', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814';
+        var coin = "{{request()->route()->coin}}", name_coin = 'ethereum', wallet = '0x89b346710d578679e44a5678a4f7f35472b24814', measure = 'mh/s';
         var url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
         var url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
         var url_dolar = "https://api.fixer.io/latest?base=USD";
@@ -149,8 +149,8 @@
         var url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
         var dolar_currency = 3.20, coin_currency = 3251.21, min_saque = 0.05000000, min_saque = parseFloat(min_saque).toFixed(4), balance = 0;
         var minerado = "", progresso = "", progresso_adminlte = "";
-        var poder_placas_amd = (27.28 * 2) + (30.32 * 0) + (14.5 * 0);
-        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 0) * 1) + ((14.84 * 5) * 1);
+        var poder_placas_amd = (28.03 * 2) + (30.32 * 0) + (14.5 * 0);
+        var poder_placas_nvidia = ((31.1 * 1) * 0) + ((24.4 * 0) * 1) + ((15.08 * 5) * 1);
         var poder_placas = poder_placas_amd + poder_placas_nvidia;
         var placas = 0;
         var coin_icon = '<i class="cc ETH-alt" title="ETH"></i>';
@@ -158,6 +158,7 @@
 
         if(coin == 'zec'){
             wallet = 't1LFzpH46orZNPR5d9dSyENeYJqb2sysvYu';
+            measure = 'sol/s';
             min_saque = 0.01000000;
             min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 1250;
@@ -173,11 +174,12 @@
 
         if(coin == 'etc'){
             wallet = '0x1932A6a770185F9b2b5B50Ee1ea97B44DAf00953';
+            measure = 'mh/s';
             min_saque = 0.35000000;
             min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 113;
-            poder_placas_amd = (28.75 * 2) + (30.32 * 0) + (12.3 * 0);
-            poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 0) + ((15.03 * 5) * 1);
+            poder_placas_amd = (28.03 * 2) + (30.32 * 0) + (12.3 * 0);
+            poder_placas_nvidia = ((31.1 * 6) * 0) + ((24.3 * 1) * 0) + ((15.08 * 5) * 1);
             poder_placas = poder_placas_amd + poder_placas_nvidia;
             url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
             url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
@@ -188,6 +190,7 @@
 
         if(coin == 'xmr'){
             wallet = '4JcUzZmBTaNRvH6BkoXRuEjd3odbKztEb8e1gVkMNBWuHRRxkbSRqfqQEBrx16GTfmZtF3tUMRWBaWGBDAugkebK3PUs5Q1XViR198xhQz';
+            measure = 'h/s';
             min_saque = 0.35000000;
             min_saque = parseFloat(min_saque).toFixed(4);
             coin_currency = 113;
@@ -199,6 +202,24 @@
             url_nool_workers = "https://api.nanopool.org/v1/"+coin+"/workers/"+wallet;
             coin_icon = '<i class="cc ETC-alt" title="ETC"></i>';
             coin_sigla = 'XMR';
+        }
+
+        if(coin == 'sia'){
+            wallet = '7f5fe25ec3c767a892554935054cace7b140fff52082ff3f772aedb1dd00843b7560f4ec7c04';
+            measure = 'mh/s';
+            min_saque = 1000;
+            min_saque = parseFloat(min_saque).toFixed(4);
+            coin_currency = 113;
+            poder_placas_amd = (585 * 2) + (30.32 * 0) + (12.3 * 0);
+            poder_placas_nvidia = ((31.1 * 6) * 0) + ((555.05 * 1) * 0) + ((147 * 5) * 1);
+            poder_placas = poder_placas_amd + poder_placas_nvidia;
+            url_nool_general = "https://api.nanopool.org/v1/"+coin+"/user/"+wallet;
+            url_nool_payment = "https://api.nanopool.org/v1/"+coin+"/payments/"+wallet;
+            url_nool_workers = "https://api.nanopool.org/v1/"+coin+"/workers/"+wallet;
+            coin_icon = '<i class="cc SIA-alt" title="SIA"></i>';
+            coin_sigla = 'SC';
+            name_coin = 'siacoin';
+            url_coin_mcap = "https://api.coinmarketcap.com/v1/ticker/"+name_coin+"/?convert=BRL";
         }
         
         $(".coin-icon").html(coin_icon);
@@ -244,29 +265,46 @@
                     $(".usd-currency").html(dolar_currency);
             }});
 
-            $.ajax({
-                type: "GET",
-                url: url_coin_braziliex,
-                dataType: 'json',
-                success: function(data){
-                    //console.log(data);
-                    //coin_currency = parseFloat(data[0].price_brl).toFixed(2);
-                    coin_currency = parseFloat(data.last).toFixed(2);
-                    if(coin_currency == 0){
-                        if(coin == 'eth'){
-                            coin_currency = 3251.21;
+            if(coin == "sia"){
+                $.ajax({
+                    type: "GET",
+                    url: url_coin_mcap,
+                    dataType: 'json',
+                    success: function(data){
+                        coin_currency = parseFloat(data[0].price_brl).toFixed(2);
+                        if(coin_currency == 0){
+                            coin_currency = 0.05;
                         }
+                        $(".coin-currency").html(coin_currency);
+                }});
+            }else{
+                $.ajax({
+                    type: "GET",
+                    url: url_coin_braziliex,
+                    dataType: 'json',
+                    success: function(data){
+                        //console.log(data);
+                        //coin_currency = parseFloat(data[0].price_brl).toFixed(2);
+                        coin_currency = parseFloat(data.last).toFixed(2);
+                        if(coin_currency == 0){
+                            if(coin == 'eth'){
+                                coin_currency = 3251.21;
+                            }
 
-                        if(coin == 'etc'){
-                            coin_currency = 100.21;
-                        }
+                            if(coin == 'etc'){
+                                coin_currency = 100.21;
+                            }
 
-                        if(coin == 'zec'){
-                            coin_currency = 1400.21;
+                            if(coin == 'zec'){
+                                coin_currency = 1400.21;
+                            }
+                            if(coin == 'xmr'){
+                                coin_currency = 900.21;
+                            }
                         }
-                    }
-                    $(".coin-currency").html(coin_currency);
-            }});
+                        $(".coin-currency").html(coin_currency);
+                }});
+            }
 //                $(".coin-currency").html(coin_currency);
 
             $.ajax({
@@ -362,15 +400,20 @@
                     if (hashrate_media >= hashrate){ hashrate = hashrate_media; }
 
                     hashrate = parseFloat(hashrate).toFixed(2);
-                    hashrates = "01 Hora "+ h1 +"<br>03 Horas "+ h3 +"<br>06 Horas "+ h6 +"<br>12 Horas "+ h12 +"<br>24 Horas " + h24;
+                    hashrates = "01 Hora(s) "+ h1 +" "+ measure +
+                                "<br>03 Hora(s) "+ h3 +" "+ measure +
+                                "<br>06 Hora(s) "+ h6 +" "+ measure +
+                                "<br>12 Hora(s) "+ h12 +" "+ measure +
+                                "<br>24 Hora(s) " + h24 +" "+ measure;
 
                     $('.hashrates').attr({
-                       "data-original-title": hashrates
+                       "data-original-title": hashrates 
                     });
+
                     url_nool_calculator = "https://api.nanopool.org/v1/"+coin+"/approximated_earnings/"+hashrate;
-                    $(".poder_placas").html(parseFloat(poder_placas).toFixed(2));
-                    $(".media_hash").html(parseFloat(hashrate_media).toFixed(2));
-                    $(".hash24").html(parseFloat(h24).toFixed(2));
+                    $(".poder_placas").html(parseFloat(poder_placas).toFixed(2)+" "+ measure);
+                    $(".media_hash").html(parseFloat(hashrate_media).toFixed(2)+" "+ measure);
+                    $(".hash24").html(parseFloat(h24).toFixed(2)+" "+ measure);
                     $(".min_saque").html(min_saque);
                     $(".min_saque_brl").html(parseFloat(min_saque * coin_currency).toFixed(2));
                     $(".minerado").html(progresso);
@@ -396,7 +439,7 @@
                                     name = name.replace('day','Por dia');
                                     name = name.replace('week','Por semana');
                                     name = name.replace('month','Por mes');
-                                    if (name != 'prices') {
+                                    if (name != 'prices' && name != 'Por minuto' && name != 'Por hora') {
                                         table_calc = table_calc + '<tr><td>'+ name +'</td><td><i class="cc '+coin.toUpperCase()+'"></i> '+ parseFloat(value.coins).toFixed(8) +'</td><td>R$ '+ parseFloat(value.coins * coin_currency).toFixed(2) +'</td><td><i class="cc BTC"></i> '+ parseFloat(value.bitcoins).toFixed(8) +'</td></tr>';                                                                                
                                     }
                                 });
